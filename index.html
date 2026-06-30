@@ -410,6 +410,14 @@
     <div id="exBody"></div>
   </section>
 
+  <!-- QUIZ -->
+  <section id="quiz">
+    <h2>Weekly quiz</h2>
+    <p style="font-size:.85rem; color:#5b6664; margin-top:0;">A short check after each week — mixes phrases and patterns from that week's focus.</p>
+    <div class="cat-tabs" id="quizWeekTabs"></div>
+    <div id="quizBody"></div>
+  </section>
+
   <!-- RESOURCES -->
   <section id="resources">
     <h2>Free resources</h2>
@@ -426,6 +434,7 @@
   <button data-target="plan" class="active"><span class="ic">📅</span>Plan</button>
   <button data-target="phrases"><span class="ic">💬</span>Phrases</button>
   <button data-target="exercises"><span class="ic">✏️</span>Practice</button>
+  <button data-target="quiz"><span class="ic">🏁</span>Quiz</button>
   <button data-target="resources"><span class="ic">🔗</span>Resources</button>
 </nav>
 
@@ -724,7 +733,73 @@ const translateItems = [
   {en:"That's really nice.", fr:"C'est vraiment sympa."}
 ];
 
-/* ---------- STORAGE ---------- */
+/* weekly quizzes — themed to each week's focus */
+const quizWeeks = [
+  [ // Week 1: Greetings & sounds
+    {fr:"Salut, ça va ?", choices:["Goodbye!","Hey, how's it going?","Thank you."], answer:1},
+    {fr:"Comment tu t'appelles ?", choices:["What's your name?","Where do you live?","How old are you?"], answer:0},
+    {fr:"Je m'appelle...", choices:["I live in...","My name is...","I am from..."], answer:1},
+    {fr:"Merci beaucoup.", choices:["You're welcome.","Thank you very much.","Excuse me."], answer:1},
+    {fr:"Je suis fatigué(e).", choices:["I'm tired.","I'm happy.","I'm hungry."], answer:0},
+    {fr:"J'ai faim.", choices:["I'm thirsty.","I'm hungry.","I'm tired."], answer:1}
+  ],
+  [ // Week 2: Survival phrases / speaking
+    {fr:"Je voudrais...", choices:["I would like...","I have...","I want to leave..."], answer:0},
+    {fr:"Tu peux m'aider ?", choices:["Can you help me?","Are you free?","Can I help you?"], answer:0},
+    {fr:"Je ne sais pas.", choices:["I don't know.","I don't understand.","I don't have time."], answer:0},
+    {fr:"Je suis d'accord.", choices:["I disagree.","I agree.","I'm not sure."], answer:1},
+    {fr:"C'est pas grave.", choices:["It's serious.","It's no big deal.","It's expensive."], answer:1},
+    {fr:"Qu'est-ce que tu fais ?", choices:["What are you doing?","Where are you?","Who is that?"], answer:0}
+  ],
+  [ // Week 3: Questions
+    {fr:"Pourquoi pas ?", choices:["Why not?","Why is that?","What for?"], answer:0},
+    {fr:"Où est-ce qu'on se retrouve ?", choices:["When do we meet?","Where should we meet?","Why do we meet?"], answer:1},
+    {fr:"Combien ça coûte ?", choices:["How much does it cost?","How long does it take?","How far is it?"], answer:0},
+    {fr:"Tu en penses quoi ?", choices:["What do you think about it?","What are you doing?","What time is it?"], answer:0},
+    {fr:"Il est quelle heure ?", choices:["What day is it?","What time is it?","How long is it?"], answer:1},
+    {fr:"Quand est-ce que tu es libre ?", choices:["When are you free?","Are you busy?","Where are you?"], answer:0}
+  ],
+  [ // Week 4: Near future & near past
+    {fr:"Je viens de finir le travail.", choices:["I'm about to finish work.","I just finished work.","I will finish work."], answer:1},
+    {fr:"Je vais arriver en retard.", choices:["I just arrived late.","I'm going to be late.","I was late yesterday."], answer:1},
+    {fr:"On se voit quand ?", choices:["When are we seeing each other?","Did we see each other?","Why see each other?"], answer:0},
+    {fr:"Je suis libre vendredi.", choices:["I worked on Friday.","I'm free on Friday.","I'm busy on Friday."], answer:1},
+    {fr:"Tu peux répéter ?", choices:["Can you repeat that?","Did you understand?","Can you wait?"], answer:0},
+    {fr:"Je pense que c'est une bonne idée.", choices:["I think it's a good idea.","I had a good idea.","I don't have an idea."], answer:0}
+  ],
+  [ // Week 5: Midpoint review (mix of weeks 1-4)
+    {fr:"Enchanté(e).", choices:["Nice to meet you.","See you later.","Good night."], answer:0},
+    {fr:"Je peux t'aider.", choices:["I need your help.","I can help you.","Help me, please."], answer:1},
+    {fr:"Comment ça s'est passé ?", choices:["How did it go?","How are you?","What happened next?"], answer:0},
+    {fr:"Je viens de finir le travail.", choices:["I'm finishing work now.","I just finished work.","I never finish work."], answer:1},
+    {fr:"C'est loin d'ici ?", choices:["Is it close by?","Is it far from here?","Where is it?"], answer:1},
+    {fr:"Je suis d'accord.", choices:["I agree.","I'm not sure.","I disagree."], answer:0}
+  ],
+  [ // Week 6: Everyday situations (plans, food/café)
+    {fr:"Ça te dit d'aller boire un verre ?", choices:["Do you want a glass of water?","Want to go grab a drink?","Is the glass empty?"], answer:1},
+    {fr:"On peut se retrouver chez moi.", choices:["We can meet at my place.","We can't meet today.","Let's meet at a café."], answer:0},
+    {fr:"L'addition, s'il vous plaît.", choices:["The menu, please.","A table, please.","The check, please."], answer:2},
+    {fr:"Je suis végétarien(ne).", choices:["I'm vegetarian.","I'm allergic.","I'm hungry."], answer:0},
+    {fr:"On partage ?", choices:["Shall we split it?","Are you sharing?","Is it shared already?"], answer:0},
+    {fr:"On y va à pied ou en voiture ?", choices:["Are we walking or driving?","Where are we going?","When do we leave?"], answer:0}
+  ],
+  [ // Week 7: Opinions & feelings
+    {fr:"J'aime beaucoup ça.", choices:["I don't like that.","I like that a lot.","I've never tried that."], answer:1},
+    {fr:"Ça m'énerve un peu.", choices:["It annoys me a little.","It makes me happy.","It surprises me."], answer:0},
+    {fr:"J'ai hâte !", choices:["I'm exhausted!","I can't wait!","I'm worried!"], answer:1},
+    {fr:"Ça me fait plaisir.", choices:["That makes me happy.","That bothers me.","That confuses me."], answer:0},
+    {fr:"Je suis un peu stressé(e).", choices:["I'm a bit stressed.","I'm very relaxed.","I'm a bit tired."], answer:0},
+    {fr:"C'est vraiment sympa.", choices:["That's really hard.","That's really nice.","That's really far."], answer:1}
+  ],
+  [ // Week 8: Full mix, hardest review
+    {fr:"Je viens de finir le travail.", choices:["I just finished work.","I'm going to finish work.","I finished work yesterday."], answer:0},
+    {fr:"Ça te dit d'aller boire un verre ?", choices:["Want to go grab a drink?","Do you have a drink?","Is the drink ready?"], answer:0},
+    {fr:"Je pense que c'est une bonne idée.", choices:["I think it's a good idea.","I doubt it's a good idea.","It was a good idea."], answer:0},
+    {fr:"Combien ça coûte ?", choices:["How much does it cost?","How long does it take?","Where is it?"], answer:0},
+    {fr:"On se rejoint à quelle heure ?", choices:["What time should we meet up?","Where should we meet?","Who's joining us?"], answer:0},
+    {fr:"Ça ne me dérange pas.", choices:["I don't mind.","It bothers me a lot.","I disagree."], answer:0}
+  ]
+];
 const store = {
   get(key, fallback){ try{ const v = localStorage.getItem(key); return v===null? fallback : JSON.parse(v); }catch(e){ return fallback; } },
   set(key, val){ try{ localStorage.setItem(key, JSON.stringify(val)); }catch(e){} }
@@ -865,6 +940,79 @@ function renderResTabs(){
 }
 renderResTabs();
 renderResources();
+
+/* ---------- WEEKLY QUIZ ---------- */
+let activeQuizWeek = 0;
+let quizBest = store.get('quizBest', {});
+
+function renderQuizTabs(){
+  const wrap = document.getElementById('quizWeekTabs');
+  wrap.innerHTML = '';
+  quizWeeks.forEach((_, i)=>{
+    const best = quizBest[i];
+    const b = document.createElement('button');
+    b.className = 'cat-tab' + (i===activeQuizWeek? ' active':'');
+    b.textContent = `Week ${i+1}` + (best!==undefined ? ` · ${best}/${quizWeeks[i].length}` : '');
+    b.addEventListener('click', ()=>{ activeQuizWeek = i; renderQuizTabs(); renderQuizBody(); });
+    wrap.appendChild(b);
+  });
+}
+
+function renderQuizBody(){
+  const body = document.getElementById('quizBody');
+  const questions = quizWeeks[activeQuizWeek];
+  const weekInfo = weeks[activeQuizWeek];
+  let i = 0, score = 0;
+
+  function show(){
+    if(i >= questions.length){
+      const prevBest = quizBest[activeQuizWeek];
+      if(prevBest === undefined || score > prevBest){
+        quizBest[activeQuizWeek] = score;
+        store.set('quizBest', quizBest);
+        renderQuizTabs();
+      }
+      body.innerHTML = `
+        <div class="card">
+          <div class="score-pill">Score: ${score}/${questions.length}</div>
+          <p>That's the Week ${activeQuizWeek+1} quiz done. Best score saved on this device.</p>
+          <button class="btn btn-primary" id="restart">Retake quiz</button>
+        </div>`;
+      body.querySelector('#restart').addEventListener('click', ()=>{ i=0; score=0; show(); });
+      return;
+    }
+    const q = questions[i];
+    body.innerHTML = `
+      <div class="card question-card">
+        <div class="q-progress">Week ${activeQuizWeek+1} · ${weekInfo.title} — Question ${i+1} of ${questions.length}</div>
+        <div class="q-prompt">What does this mean?<br><span class="french">«${q.fr}»</span></div>
+        ${q.choices.map((c,idx)=>`<button class="opt" data-idx="${idx}">${c}</button>`).join('')}
+        <div class="feedback" id="fb"></div>
+      </div>`;
+    const opts = body.querySelectorAll('.opt');
+    opts.forEach(opt=>{
+      opt.addEventListener('click', ()=>{
+        opts.forEach(o=>o.disabled = true);
+        const idx = +opt.dataset.idx;
+        const fb = body.querySelector('#fb');
+        if(idx === q.answer){
+          opt.classList.add('correct');
+          fb.textContent = 'Correct!'; fb.className='feedback ok';
+          score++;
+        } else {
+          opt.classList.add('wrong');
+          opts[q.answer].classList.add('correct');
+          fb.textContent = 'Not quite — correct answer highlighted.'; fb.className='feedback bad';
+        }
+        setTimeout(()=>{ i++; show(); }, 900);
+      });
+    });
+  }
+  show();
+}
+
+renderQuizTabs();
+renderQuizBody();
 
 /* ---------- EXERCISES ---------- */
 const exTabs = [
