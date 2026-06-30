@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Parle — 2-Month Spoken French Plan</title>
+<style>
+  :root{
+    --ink:#16213a;
+    --cream:#f7f8fb;
+    --teal:#1d3a6e;
+    --teal-deep:#0f2147;
+    --mustard:#a4474a;
+    --rust:#8a5052;
+    --line: rgba(22,33,58,0.12);
+    --card: #ffffff;
+    --radius: 16px;
+    font-size: 16px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: var(--cream);
+    color: var(--ink);
+    font-family: "Avenir Next", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    padding-bottom: 78px;
+  }
+  h1,h2,h3{
+    font-family: "Iowan Old Style", "Georgia", "Palatino Linotype", serif;
+    margin: 0 0 .4rem 0;
+    color: var(--teal-deep);
+    letter-spacing: .2px;
+  }
+  .french{
+    font-family: "Iowan Old Style", "Georgia", serif;
+    font-style: italic;
+  }
+  header.top{
+    background: var(--teal);
+    color: var(--cream);
+    padding: 14px 18px 16px;
+    border-bottom: 4px solid var(--mustard);
+    position: relative;
+    overflow: hidden;
+  }
+  header.top::after{
+    content:"";
+    position:absolute;
+    right:-30px; top:-30px;
+    width:100px; height:100px;
+    background: var(--mustard);
+    opacity:.18;
+    border-radius:50%;
+  }
+  header.top .eyebrow{
+    font-size:.68rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color: var(--mustard);
+    font-weight:600;
+    margin-bottom:4px;
+  }
+  header.top h1{
+    color: var(--cream);
+    font-size: 1.35rem;
+    margin-bottom: 0;
+  }
+
+  main{
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 18px 16px 8px;
+  }
+  section{ display:none; animation: fade .25s ease; }
+  section.active{ display:block; }
+  @keyframes fade{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;} }
+
+  .card{
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 16px 16px 14px;
+    margin-bottom: 14px;
+    border: 1px solid var(--line);
+    box-shadow: 0 1px 0 rgba(29,43,40,.04);
+  }
+
+  /* Plan/week timeline */
+  .week{
+    display:flex;
+    gap:12px;
+    margin-bottom: 14px;
+    border-radius: var(--radius);
+    background: var(--card);
+    border:1px solid var(--line);
+    padding: 14px;
+  }
+  .week .badge{
+    flex: 0 0 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--teal);
+    color: var(--cream);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700;
+    font-size: .95rem;
+  }
+  .week.done .badge{ background: var(--mustard); }
+  .week .content{ flex:1; min-width:0; }
+  .week h3{ font-size: 1rem; margin-bottom: 2px;}
+  .week .focus{
+    font-size:.78rem;
+    color: var(--rust);
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    margin-bottom: 4px;
+  }
+  .week p{ margin:0 0 6px; font-size:.9rem; line-height:1.45; }
+  .week ul{ margin:6px 0 0; padding-left: 1.1rem; font-size:.88rem; line-height:1.5;}
+  .checklist{ list-style:none; margin:6px 0 0; padding:0; }
+  .checklist li{
+    display:flex; align-items:flex-start; gap:10px;
+    font-size:.88rem; line-height:1.45;
+    padding:7px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .checklist li:last-child{ border-bottom:none; }
+  .checklist input[type="checkbox"]{
+    flex:0 0 auto;
+    width:19px; height:19px;
+    margin-top:2px;
+    accent-color: var(--teal);
+    cursor:pointer;
+  }
+  .checklist li.checked span{ color:#7c8794; text-decoration: line-through; }
+  .week-progress{
+    font-size:.74rem;
+    color: var(--mustard);
+    font-weight:700;
+    margin-top:8px;
+  }
+  .week-toggle{
+    width:100%;
+    background:none; border:none;
+    display:flex; align-items:center; gap:12px;
+    text-align:left; cursor:pointer; padding:0;
+    color: inherit;
+  }
+  .week .details{ display:none; }
+  .week.open .details{ display:block; }
+  .chev{ margin-left:auto; transition: transform .2s; font-size:.85rem; color:var(--teal); flex:0 0 auto;}
+  .week.open .chev{ transform: rotate(90deg); }
+  .week-mark{
+    margin-top:8px;
+    font-size:.78rem;
+    border:1px solid var(--teal);
+    color:var(--teal);
+    background:none;
+    border-radius:20px;
+    padding:5px 12px;
+    cursor:pointer;
+    font-weight:600;
+  }
+  .week.done .week-mark{ background:var(--mustard); border-color:var(--mustard); color:var(--teal-deep); }
+
+  /* Phrase bank */
+  .cat-tabs{
+    display:flex; gap:8px; overflow-x:auto; padding-bottom:8px; margin-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .cat-tabs::-webkit-scrollbar{display:none;}
+  .cat-tab{
+    flex:0 0 auto;
+    background: var(--card);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:7px 14px;
+    font-size:.82rem;
+    font-weight:600;
+    color: var(--teal-deep);
+    cursor:pointer;
+  }
+  .cat-tab.active{ background: var(--teal); color: var(--cream); border-color: var(--teal);}
+  .phrase{
+    display:flex; align-items:center; gap:10px;
+    padding: 12px 4px;
+    border-bottom: 1px solid var(--line);
+  }
+  .phrase:last-child{ border-bottom:none; }
+  .phrase .txt{ flex:1; min-width:0; }
+  .phrase .fr{ font-size:1.05rem; color:var(--teal-deep); }
+  .phrase .en{ font-size:.82rem; color:#5b6664; margin-top:1px;}
+  .play-btn{
+    flex:0 0 auto;
+    width:38px; height:38px;
+    border-radius:50%;
+    border:1px solid var(--teal);
+    background: var(--cream);
+    color: var(--teal);
+    font-size:1rem;
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .play-btn:active{ background: var(--teal); color: var(--cream); }
+
+  /* Exercises */
+  .ex-tabs{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+  .ex-tab{
+    flex:1 1 auto;
+    text-align:center;
+    background: var(--card);
+    border:1px solid var(--line);
+    border-radius: 12px;
+    padding:10px 6px;
+    font-size:.78rem;
+    font-weight:700;
+    color: var(--teal-deep);
+    cursor:pointer;
+  }
+  .ex-tab.active{ background: var(--rust); color:#fff; border-color:var(--rust); }
+  .q-block{ display:none; }
+  .q-block.active{ display:block; }
+  .question-card{ }
+  .q-progress{
+    font-size:.78rem; color:#5b6664; font-weight:600; margin-bottom:10px;
+  }
+  .q-prompt{ font-size:1.1rem; margin-bottom:14px; line-height:1.4; }
+  .q-prompt .french{ font-size:1.25rem; color: var(--teal-deep); }
+  .opt{
+    display:block;
+    width:100%;
+    text-align:left;
+    padding: 12px 14px;
+    margin-bottom:8px;
+    border-radius:10px;
+    border:1px solid var(--line);
+    background: var(--cream);
+    font-size:.95rem;
+    cursor:pointer;
+    color: var(--ink);
+  }
+  .opt.correct{ background:#e2eaf6; border-color:#1d3a6e; }
+  .opt.wrong{ background:#f1e3e3; border-color:var(--rust); }
+  .opt:disabled{ cursor:default; }
+  .fill-input{
+    width:100%;
+    font-size:1rem;
+    padding:12px 14px;
+    border-radius:10px;
+    border:1px solid var(--line);
+    margin-bottom:10px;
+    background: var(--cream);
+  }
+  .ex-btn-row{ display:flex; gap:10px; margin-top:6px; }
+  .btn{
+    border:none;
+    border-radius:10px;
+    padding:11px 16px;
+    font-weight:700;
+    font-size:.9rem;
+    cursor:pointer;
+  }
+  .btn-primary{ background: var(--teal); color: var(--cream); }
+  .btn-ghost{ background:none; border:1px solid var(--teal); color:var(--teal); }
+  .feedback{
+    margin-top: 10px;
+    font-size:.88rem;
+    font-weight:600;
+    min-height: 1.2em;
+  }
+  .feedback.ok{ color:#3f6e38; }
+  .feedback.bad{ color: var(--rust); }
+  .score-pill{
+    display:inline-block;
+    background: var(--mustard);
+    color: var(--teal-deep);
+    border-radius:20px;
+    padding:4px 12px;
+    font-size:.78rem;
+    font-weight:700;
+    margin-bottom:14px;
+  }
+  .builder-bank{
+    display:flex; flex-wrap:wrap; gap:8px;
+    margin-bottom:14px;
+    min-height: 44px;
+    padding:8px;
+    border:1px dashed var(--line);
+    border-radius:10px;
+  }
+  .builder-bank .chip{
+    background: var(--card);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:8px 12px;
+    font-size:.95rem;
+    cursor:pointer;
+    font-family: "Iowan Old Style", Georgia, serif;
+  }
+  .builder-answer{
+    min-height:44px;
+    display:flex; flex-wrap:wrap; gap:8px;
+    padding:8px;
+    border-bottom: 2px solid var(--teal);
+    margin-bottom:12px;
+  }
+  .builder-answer .chip{ background: var(--teal); color: var(--cream); border-color:var(--teal); }
+
+  /* Resources */
+  .res-item{
+    display:block;
+    padding:13px 4px;
+    border-bottom: 1px solid var(--line);
+    text-decoration:none;
+    color: inherit;
+  }
+  .res-item:last-child{ border-bottom:none; }
+  .res-item .name{ font-weight:700; color: var(--teal-deep); font-size:.98rem; }
+  .res-item .desc{ font-size:.84rem; color:#5b6664; margin-top:2px; }
+  .res-tags{ display:flex; gap:6px; margin-top:6px; flex-wrap:wrap; }
+  .res-tag{
+    display:inline-block;
+    font-size:.68rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    background: var(--cream);
+    border:1px solid var(--teal);
+    color:var(--teal);
+    border-radius:10px;
+    padding:2px 8px;
+  }
+  .res-tag-type{
+    background: var(--teal);
+    color: var(--cream);
+    border-color: var(--teal);
+  }
+
+  footer.note{
+    text-align:center;
+    font-size:.78rem;
+    color:#7c8884;
+    padding: 20px 24px 30px;
+  }
+
+  /* bottom nav */
+  nav.bottom{
+    position:fixed;
+    bottom:0; left:0; right:0;
+    background: var(--teal-deep);
+    display:flex;
+    padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+    z-index: 50;
+    border-top: 3px solid var(--mustard);
+  }
+  nav.bottom button{
+    flex:1;
+    background:none;
+    border:none;
+    color: rgba(246,241,228,.6);
+    font-size:.68rem;
+    font-weight:600;
+    padding:6px 2px;
+    display:flex; flex-direction:column; align-items:center; gap:4px;
+    cursor:pointer;
+  }
+  nav.bottom button .ic{ font-size:1.25rem; }
+  nav.bottom button.active{ color: var(--cream); }
+  nav.bottom button.active .ic{ color: var(--mustard); }
+
+  @media (min-width:600px){
+    header.top h1{ font-size:2rem; }
+    .week{ padding:18px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="eyebrow">Two-month plan</div>
+  <h1>Parle.</h1>
+</header>
+
+<main>
+
+  <!-- PLAN -->
+  <section id="plan" class="active">
+    <div class="card" style="background:var(--mustard); border:none;">
+      <h3 style="margin-bottom:6px;">How this works</h3>
+      <p style="margin:0; font-size:.88rem; line-height:1.5; color:var(--teal-deep);">
+        ~30–40 min/day, six days a week. Listening and speaking lead every week. Reading and writing only show up when they directly support speaking. Tap a week to expand it, and mark it done as you go — your progress is saved on this device.
+      </p>
+    </div>
+    <div id="weeks"></div>
+  </section>
+
+  <!-- PHRASES -->
+  <section id="phrases">
+    <h2>Phrase bank</h2>
+    <p style="font-size:.85rem; color:#5b6664; margin-top:0;">The chunks worth knowing cold. Tap ▶ to hear them spoken (uses your device's French voice).</p>
+    <div class="cat-tabs" id="catTabs"></div>
+    <div class="card" id="phraseList"></div>
+  </section>
+
+  <!-- EXERCISES -->
+  <section id="exercises">
+    <h2>Exercises</h2>
+    <div class="ex-tabs" id="exTabs"></div>
+    <div id="exBody"></div>
+  </section>
+
+  <!-- RESOURCES -->
+  <section id="resources">
+    <h2>Free resources</h2>
+    <p style="font-size:.85rem; color:#5b6664; margin-top:0;">Everything referenced in the plan, all free to start with.</p>
+    <div class="cat-tabs" id="resTabs"></div>
+    <div class="card" id="resList"></div>
+  </section>
+
+</main>
+
+<footer class="note">Made for self-study · progress stored locally in your browser</footer>
+
+<nav class="bottom">
+  <button data-target="plan" class="active"><span class="ic">📅</span>Plan</button>
+  <button data-target="phrases"><span class="ic">💬</span>Phrases</button>
+  <button data-target="exercises"><span class="ic">✏️</span>Practice</button>
+  <button data-target="resources"><span class="ic">🔗</span>Resources</button>
+</nav>
+
+<script>
+/* ---------- DATA ---------- */
+
+const weeks = [
+  {
+    title: "Get your ear moving",
+    focus: "Listening + sounds",
+    summary: "Stop collecting words. Start hearing how French actually sounds and flows.",
+    details: [
+      "Pimsleur French (or Coffee Break French) — Lessons 1–3, out loud, every day.",
+      "5–10 min passive listening daily: InnerFrench podcast (slow, beginner-aimed).",
+      "Learn the core verbs by sound, not spelling: être, avoir, aller, faire — just present tense.",
+      "In this app: go through the 'Greetings & basics' and 'Everyday verbs' phrase categories, play every audio."
+    ]
+  },
+  {
+    title: "Survival phrases",
+    focus: "Speaking",
+    summary: "Build the chunks you'd actually need in the first minute of a real conversation.",
+    details: [
+      "Pimsleur/CBF Lessons 4–6, repeating out loud until it feels automatic, not read.",
+      "Memorise 'Asking & saying things' phrase category here — these are reusable templates.",
+      "Start narrating your day out loud in French for 5 min (even badly): 'je mange... je vais...'.",
+      "Do the Multiple Choice exercises in this app daily, 5 min."
+    ]
+  },
+  {
+    title: "Questions & connecting",
+    focus: "Speaking + listening",
+    summary: "Conversation is mostly questions and reactions. Get fluent in asking, not just answering.",
+    details: [
+      "Pimsleur/CBF Lessons 7–9.",
+      "Add: Français Authentique podcast (free) for natural, slightly faster listening.",
+      "Drill the 'Questions' phrase category — comment, pourquoi, où, quand, combien.",
+      "Try your first short exchange on Tandem or HelloTalk (free language exchange apps) — even 5 minutes."
+    ]
+  },
+  {
+    title: "Near future & near past",
+    focus: "Sentence building",
+    summary: "Two constructions unlock most casual conversation: 'je vais + verbe' and 'je viens de + verbe'.",
+    details: [
+      "Pimsleur/CBF Lessons 10–12.",
+      "This app: Sentence Builder exercises — focus on future/past chunks.",
+      "Listening: pick one InnerFrench or Français Authentique episode, listen twice, no subtitles second time.",
+      "Conversation check-in #2 on Tandem/HelloTalk, try using je vais / je viens de at least 3 times."
+    ]
+  },
+  {
+    title: "Midpoint review",
+    focus: "Consolidation",
+    summary: "No new material — fill the gaps and notice what's actually sticking.",
+    details: [
+      "Re-listen to Pimsleur Lessons 1–6 without looking anything up.",
+      "Go through every phrase category in this app and re-test yourself with Listening Dictation exercises.",
+      "Light reading support only: try Le Français Facile (free, graded easy texts) for 10 min if curious — not required.",
+      "Have one longer (10–15 min) voice chat on Tandem/HelloTalk."
+    ]
+  },
+  {
+    title: "Everyday situations",
+    focus: "Speaking",
+    summary: "Café, shopping, making plans — the scenarios that come up with friends constantly.",
+    details: [
+      "Pimsleur/CBF Lessons 13–15.",
+      "Add 'Making plans' and 'Food & café' phrase categories here, audio-first.",
+      "Watch one short French YouTube clip with French subtitles on (not English) — train ear+eye together.",
+      "Practice ordering/making plans out loud, then try it for real on Tandem/HelloTalk."
+    ]
+  },
+  {
+    title: "Opinions & feelings",
+    focus: "Speaking + listening",
+    summary: "Friendship-level talk needs opinions: j'aime, je pense que, ça me plaît, ça m'énerve.",
+    details: [
+      "Pimsleur/CBF Lessons 16–18.",
+      "Drill 'Opinions & feelings' phrase category.",
+      "Listening: a full InnerFrench/Français Authentique episode with zero subtitles.",
+      "Conversation goal: express a real opinion about something (a film, food, your week) unscripted."
+    ]
+  },
+  {
+    title: "Put it together",
+    focus: "Free conversation",
+    summary: "Less new input, more producing language freely. This week is about output.",
+    details: [
+      "Free-talk for at least 20 min total across 2+ Tandem/HelloTalk sessions, no script.",
+      "Replay every phrase category here once, aiming for instant recall before the English shows.",
+      "Take the Listening Dictation and Sentence Builder exercises again — compare to week 1 scores.",
+      "Decide your next 2 months: more Pimsleur volume, a tutor on iTalki, or a French-speaking community."
+    ]
+  }
+];
+
+const PHRASE_CATS = ["Greetings & basics","Everyday verbs","Asking & saying things","Questions","Making plans","Food & café","Opinions & feelings"];
+
+const phrases = {
+  "Greetings & basics": [
+    ["Salut, ça va ?","Hey, how's it going?"],
+    ["Ça va, et toi ?","I'm good, and you?"],
+    ["Comment tu t'appelles ?","What's your name?"],
+    ["Je m'appelle...","My name is..."],
+    ["Enchanté(e).","Nice to meet you."],
+    ["À plus tard !","See you later!"],
+    ["À bientôt.","See you soon."],
+    ["Merci beaucoup.","Thank you very much."],
+    ["De rien.","You're welcome."],
+    ["Désolé(e), je ne comprends pas.","Sorry, I don't understand."]
+  ],
+  "Everyday verbs": [
+    ["Je suis fatigué(e).","I'm tired."],
+    ["J'ai faim.","I'm hungry."],
+    ["J'ai soif.","I'm thirsty."],
+    ["Je vais bien.","I'm doing well."],
+    ["Je fais des courses.","I'm running errands."],
+    ["J'ai envie de sortir.","I feel like going out."],
+    ["Je n'ai pas le temps.","I don't have time."],
+    ["Je peux t'aider.","I can help you."],
+    ["Je veux essayer.","I want to try."],
+    ["Je dois partir.","I have to leave."]
+  ],
+  "Asking & saying things": [
+    ["Est-ce que tu peux répéter ?","Can you repeat that?"],
+    ["Je voudrais...","I would like..."],
+    ["Tu peux m'aider ?","Can you help me?"],
+    ["Qu'est-ce que tu fais ?","What are you doing?"],
+    ["Je ne sais pas.","I don't know."],
+    ["Ça dépend.","It depends."],
+    ["Tu as raison.","You're right."],
+    ["C'est pas grave.","It's no big deal."],
+    ["Laisse-moi réfléchir.","Let me think."],
+    ["Je suis d'accord.","I agree."]
+  ],
+  "Questions": [
+    ["Comment ça s'est passé ?","How did it go?"],
+    ["Pourquoi pas ?","Why not?"],
+    ["Où est-ce qu'on se retrouve ?","Where should we meet?"],
+    ["Quand est-ce que tu es libre ?","When are you free?"],
+    ["Combien ça coûte ?","How much does it cost?"],
+    ["C'est loin d'ici ?","Is it far from here?"],
+    ["Tu en penses quoi ?","What do you think about it?"],
+    ["Il est quelle heure ?","What time is it?"],
+    ["Tu fais quoi ce soir ?","What are you doing tonight?"],
+    ["C'est combien de temps ?","How long does it take?"]
+  ],
+  "Making plans": [
+    ["On se voit quand ?","When are we seeing each other?"],
+    ["Ça te dit d'aller boire un verre ?","Want to go grab a drink?"],
+    ["Je suis libre vendredi.","I'm free on Friday."],
+    ["On peut se retrouver chez moi.","We can meet at my place."],
+    ["Je viens de finir le travail.","I just finished work."],
+    ["Je vais arriver en retard.","I'm going to be late."],
+    ["On y va à pied ou en voiture ?","Are we walking or driving?"],
+    ["Tu veux venir avec nous ?","Do you want to come with us?"],
+    ["On se rejoint à quelle heure ?","What time should we meet up?"],
+    ["Je confirme demain.","I'll confirm tomorrow."]
+  ],
+  "Food & café": [
+    ["Je voudrais un café, s'il vous plaît.","I'd like a coffee, please."],
+    ["L'addition, s'il vous plaît.","The check, please."],
+    ["C'est délicieux !","It's delicious!"],
+    ["Je n'aime pas trop ça.","I don't really like that."],
+    ["On partage ?","Shall we split it?"],
+    ["Pour moi, ce sera...","For me, it'll be..."],
+    ["Avez-vous une table pour deux ?","Do you have a table for two?"],
+    ["Je suis végétarien(ne).","I'm vegetarian."],
+    ["Ça sent très bon.","That smells really good."],
+    ["On prend un dessert ?","Shall we get a dessert?"]
+  ],
+  "Opinions & feelings": [
+    ["J'aime beaucoup ça.","I like that a lot."],
+    ["Je pense que c'est une bonne idée.","I think it's a good idea."],
+    ["Ça me plaît.","I like it (it pleases me)."],
+    ["Ça m'énerve un peu.","It annoys me a little."],
+    ["Je suis content(e) de te voir.","I'm happy to see you."],
+    ["Ça ne me dérange pas.","I don't mind."],
+    ["J'ai hâte !","I can't wait!"],
+    ["Je suis un peu stressé(e).","I'm a bit stressed."],
+    ["C'est vraiment sympa.","That's really nice."],
+    ["Ça me fait plaisir.","That makes me happy."]
+  ]
+};
+
+const RES_TYPES = ["All","Podcast","App","Website","Tutor"];
+const resources = [
+  ["Pimsleur French (free trial lessons)","https://www.pimsleur.com/learn-french","Audio-first course, exactly matches the listen-repeat method this plan uses.","Podcast","Core course"],
+  ["Coffee Break French","https://radiolingo.libsyn.com/","Free podcast-style course, alternative to Pimsleur if you prefer it.","Podcast","Core course"],
+  ["InnerFrench","https://innerfrench.com/podcast/","Slow, beginner-aimed podcast made specifically for learners.","Podcast","Listening"],
+  ["Français Authentique","https://www.francaisauthentique.com/podcast","Free podcast, natural speech, slightly more advanced — good for week 3 onward.","Podcast","Listening"],
+  ["Tandem","https://www.tandem.net/","Free language exchange app — text or voice with native French speakers.","App","Speaking"],
+  ["HelloTalk","https://www.hellotalk.com/","Alternative free language exchange app, similar to Tandem.","App","Speaking"],
+  ["Duolingo French","https://www.duolingo.com/course/fr/en/Learn-French","Use only as a vocab top-up, not your main method.","App","Vocab supplement"],
+  ["iTalki","https://www.italki.com/","Paid (cheap) conversation tutors if you want structured speaking practice.","Tutor","Speaking, paid"],
+  ["Le Français Facile","https://www.lefrancaisfacile.com/","Free graded readers and simple exercises, for light reading support only.","Website","Reading (optional)"],
+  ["Conjugaison Le Monde","https://conjugaison.lemonde.fr/","Free conjugator — look up être/avoir/aller/faire/vouloir/pouvoir as needed.","Website","Reference"]
+];
+
+/* exercise question banks */
+const mcq = [
+  {fr:"Comment tu t'appelles ?", choices:["What's your name?","How are you?","Where are you from?"], answer:0},
+  {fr:"J'ai faim.", choices:["I'm tired.","I'm hungry.","I'm happy."], answer:1},
+  {fr:"Je voudrais un café, s'il vous plaît.", choices:["I'd like a coffee, please.","I don't like coffee.","Where is the coffee?"], answer:0},
+  {fr:"Ça te dit d'aller boire un verre ?", choices:["Do you have a glass?","Want to go grab a drink?","Is the glass full?"], answer:1},
+  {fr:"Je viens de finir le travail.", choices:["I'm going to finish work.","I love my work.","I just finished work."], answer:2},
+  {fr:"Tu en penses quoi ?", choices:["What do you think about it?","What are you doing?","What time is it?"], answer:0},
+  {fr:"Je suis un peu stressé(e).", choices:["I'm a bit stressed.","I'm very happy.","I'm a bit tired."], answer:0},
+  {fr:"On se rejoint à quelle heure ?", choices:["Where should we meet?","What time should we meet up?","When are you free?"], answer:1},
+  {fr:"Désolé(e), je ne comprends pas.", choices:["Sorry, I'm late.","Sorry, I don't understand.","Sorry, I don't know."], answer:1},
+  {fr:"Ça ne me dérange pas.", choices:["I don't mind.","It bothers me.","I don't know."], answer:0},
+  {fr:"Enchanté(e).", choices:["Nice to meet you.","See you soon.","Thank you."], answer:0},
+  {fr:"J'ai envie de sortir.", choices:["I have to leave.","I feel like going out.","I'm going out tonight."], answer:1},
+  {fr:"Je n'ai pas le temps.", choices:["I don't have time.","I'm not on time.","I have plenty of time."], answer:0},
+  {fr:"Laisse-moi réfléchir.", choices:["Let me think.","Leave me alone.","I already thought about it."], answer:0},
+  {fr:"C'est pas grave.", choices:["It's serious.","It's no big deal.","It's heavy."], answer:1},
+  {fr:"Quand est-ce que tu es libre ?", choices:["When are you free?","Are you free now?","When did you arrive?"], answer:0},
+  {fr:"C'est loin d'ici ?", choices:["Is it far from here?","Is it close by?","Where is it?"], answer:0},
+  {fr:"Il est quelle heure ?", choices:["What day is it?","What time is it?","How long does it take?"], answer:1},
+  {fr:"Je suis libre vendredi.", choices:["I'm busy Friday.","I'm free on Friday.","I leave on Friday."], answer:1},
+  {fr:"On y va à pied ou en voiture ?", choices:["Are we walking or driving?","Where are we going?","Is it far on foot?"], answer:0},
+  {fr:"Tu veux venir avec nous ?", choices:["Are you coming alone?","Do you want to come with us?","Where are you going?"], answer:1},
+  {fr:"L'addition, s'il vous plaît.", choices:["The menu, please.","The check, please.","A table, please."], answer:1},
+  {fr:"Avez-vous une table pour deux ?", choices:["Do you have a table for two?","Is the table free?","Can I sit here?"], answer:0},
+  {fr:"Je suis végétarien(ne).", choices:["I'm vegetarian.","I'm hungry.","I don't eat dessert."], answer:0},
+  {fr:"On prend un dessert ?", choices:["Did you eat dessert?","Shall we get a dessert?","Is there dessert?"], answer:1},
+  {fr:"J'aime beaucoup ça.", choices:["I don't really like that.","I like that a lot.","I never tried that."], answer:1},
+  {fr:"Ça m'énerve un peu.", choices:["It annoys me a little.","It makes me happy.","It surprises me."], answer:0},
+  {fr:"J'ai hâte !", choices:["I'm worried!","I can't wait!","I'm exhausted!"], answer:1},
+  {fr:"C'est vraiment sympa.", choices:["That's really nice.","That's really hard.","That's really far."], answer:0},
+  {fr:"Ça me fait plaisir.", choices:["That makes me happy.","That bothers me.","That surprises me."], answer:0}
+];
+
+const fillBlank = [
+  {prompt:"___ voudrais un café.", answer:"je", hint:"I would like a coffee."},
+  {prompt:"Je ___ de finir le travail.", answer:"viens", hint:"I just finished work (je viens de + verb)."},
+  {prompt:"Qu'est-ce que tu ___ ce soir ?", answer:"fais", hint:"What are you doing tonight?"},
+  {prompt:"Je ___ arriver en retard.", answer:"vais", hint:"I'm going to be late (near future)."},
+  {prompt:"Tu ___ raison.", answer:"as", hint:"You're right (avoir)."},
+  {prompt:"Ça te ___ d'aller boire un verre ?", answer:"dit", hint:"Want to go grab a drink?"},
+  {prompt:"Je ___ d'accord.", answer:"suis", hint:"I agree (être)."},
+  {prompt:"Combien ça ___ ?", answer:"coûte", hint:"How much does it cost?"},
+  {prompt:"J'___ faim.", answer:"ai", hint:"I'm hungry (avoir)."},
+  {prompt:"Je ___ bien.", answer:"vais", hint:"I'm doing well (aller)."},
+  {prompt:"Je ___ t'aider.", answer:"peux", hint:"I can help you (pouvoir)."},
+  {prompt:"Je ___ essayer.", answer:"veux", hint:"I want to try (vouloir)."},
+  {prompt:"Je ___ partir.", answer:"dois", hint:"I have to leave (devoir)."},
+  {prompt:"On ___ retrouve à quelle heure ?", answer:"se", hint:"What time should we meet up? (reflexive pronoun)"},
+  {prompt:"Je ___ libre vendredi.", answer:"suis", hint:"I'm free on Friday (être)."},
+  {prompt:"Tu ___ venir avec nous ?", answer:"veux", hint:"Do you want to come with us?"},
+  {prompt:"Je ___ végétarien(ne).", answer:"suis", hint:"I'm vegetarian (être)."},
+  {prompt:"On ___ un dessert ?", answer:"prend", hint:"Shall we get a dessert? (prendre)"},
+  {prompt:"J'___ beaucoup ça.", answer:"aime", hint:"I like that a lot (aimer)."},
+  {prompt:"Je ___ que c'est une bonne idée.", answer:"pense", hint:"I think it's a good idea (penser)."}
+];
+
+const listenItems = Object.values(phrases).flat();
+
+const builderSentences = [
+  {parts:["Je","vais","arriver","en retard"], answer:"Je vais arriver en retard", en:"I'm going to be late."},
+  {parts:["Je","viens","de","finir","le travail"], answer:"Je viens de finir le travail", en:"I just finished work."},
+  {parts:["Tu","veux","venir","avec nous","?"], answer:"Tu veux venir avec nous ?", en:"Do you want to come with us?"},
+  {parts:["Je","voudrais","un café",","," s'il vous plaît"], answer:"Je voudrais un café , s'il vous plaît", en:"I'd like a coffee, please."},
+  {parts:["On","se","voit","quand","?"], answer:"On se voit quand ?", en:"When are we seeing each other?"},
+  {parts:["Je","pense","que","c'est","une bonne idée"], answer:"Je pense que c'est une bonne idée", en:"I think it's a good idea."},
+  {parts:["Comment","tu","t'appelles","?"], answer:"Comment tu t'appelles ?", en:"What's your name?"},
+  {parts:["Je","suis","content(e)","de te voir"], answer:"Je suis content(e) de te voir", en:"I'm happy to see you."},
+  {parts:["Tu","fais","quoi","ce soir","?"], answer:"Tu fais quoi ce soir ?", en:"What are you doing tonight?"},
+  {parts:["On","peut","se retrouver","chez moi"], answer:"On peut se retrouver chez moi", en:"We can meet at my place."},
+  {parts:["Je","suis","libre","vendredi"], answer:"Je suis libre vendredi", en:"I'm free on Friday."},
+  {parts:["Est-ce que","tu","peux","répéter","?"], answer:"Est-ce que tu peux répéter ?", en:"Can you repeat that?"}
+];
+
+/* Translate EN -> FR */
+const translateItems = [
+  {en:"Hey, how's it going?", fr:"Salut, ça va ?"},
+  {en:"What's your name?", fr:"Comment tu t'appelles ?"},
+  {en:"I'm tired.", fr:"Je suis fatigué(e)."},
+  {en:"I'm hungry.", fr:"J'ai faim."},
+  {en:"I can help you.", fr:"Je peux t'aider."},
+  {en:"I would like...", fr:"Je voudrais..."},
+  {en:"I don't know.", fr:"Je ne sais pas."},
+  {en:"I agree.", fr:"Je suis d'accord."},
+  {en:"How much does it cost?", fr:"Combien ça coûte ?"},
+  {en:"What time is it?", fr:"Il est quelle heure ?"},
+  {en:"When are we seeing each other?", fr:"On se voit quand ?"},
+  {en:"I'm free on Friday.", fr:"Je suis libre vendredi."},
+  {en:"I just finished work.", fr:"Je viens de finir le travail."},
+  {en:"Do you want to come with us?", fr:"Tu veux venir avec nous ?"},
+  {en:"The check, please.", fr:"L'addition, s'il vous plaît."},
+  {en:"It's delicious!", fr:"C'est délicieux !"},
+  {en:"I like that a lot.", fr:"J'aime beaucoup ça."},
+  {en:"I think it's a good idea.", fr:"Je pense que c'est une bonne idée."},
+  {en:"I can't wait!", fr:"J'ai hâte !"},
+  {en:"That's really nice.", fr:"C'est vraiment sympa."}
+];
+
+/* ---------- STORAGE ---------- */
+const store = {
+  get(key, fallback){ try{ const v = localStorage.getItem(key); return v===null? fallback : JSON.parse(v); }catch(e){ return fallback; } },
+  set(key, val){ try{ localStorage.setItem(key, JSON.stringify(val)); }catch(e){} }
+};
+/* ---------- NAV ---------- */
+document.querySelectorAll('nav.bottom button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('nav.bottom button').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('main section').forEach(s=>s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.target).classList.add('active');
+    window.scrollTo({top:0});
+  });
+});
+
+/* ---------- TTS ---------- */
+function speak(text){
+  if(!('speechSynthesis' in window)){ alert('Speech not supported on this browser.'); return; }
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'fr-FR';
+  const voices = speechSynthesis.getVoices();
+  const fr = voices.find(v=>v.lang && v.lang.startsWith('fr'));
+  if(fr) u.voice = fr;
+  u.rate = 0.92;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(u);
+}
+if('speechSynthesis' in window){ speechSynthesis.onvoiceschanged = ()=>{}; }
+
+/* ---------- RENDER: PLAN ---------- */
+let weekChecks = store.get('weekChecks', {});
+function renderWeeks(){
+  const wrap = document.getElementById('weeks');
+  wrap.innerHTML = '';
+  weeks.forEach((w, i)=>{
+    const checks = weekChecks[i] || w.details.map(()=>false);
+    const checkedCount = checks.filter(Boolean).length;
+    const allDone = checkedCount === w.details.length;
+    const el = document.createElement('div');
+    el.className = 'week' + (allDone? ' done':'');
+    el.innerHTML = `
+      <button class="week-toggle">
+        <div class="badge">${allDone? '✓' : (i+1)}</div>
+        <div class="content">
+          <div class="focus">${w.focus}</div>
+          <h3>Week ${i+1} · ${w.title}</h3>
+          <p>${w.summary}</p>
+          <div class="details">
+            <ul class="checklist">${w.details.map((d, di)=>`
+              <li class="${checks[di]? 'checked':''}">
+                <input type="checkbox" data-week="${i}" data-item="${di}" ${checks[di]? 'checked':''}>
+                <span>${d}</span>
+              </li>`).join('')}
+            </ul>
+            <div class="week-progress">${checkedCount} of ${w.details.length} done</div>
+          </div>
+        </div>
+        <div class="chev">▸</div>
+      </button>`;
+    wrap.appendChild(el);
+    el.querySelector('.week-toggle').addEventListener('click', (e)=>{
+      if(e.target.tagName === 'INPUT' || e.target.tagName === 'SPAN' && e.target.closest('li')) return;
+      el.classList.toggle('open');
+    });
+    el.querySelectorAll('.checklist input[type="checkbox"]').forEach(cb=>{
+      cb.addEventListener('click', (e)=> e.stopPropagation());
+      cb.addEventListener('change', ()=>{
+        const wi = +cb.dataset.week, di = +cb.dataset.item;
+        if(!weekChecks[wi]) weekChecks[wi] = weeks[wi].details.map(()=>false);
+        weekChecks[wi][di] = cb.checked;
+        store.set('weekChecks', weekChecks);
+        renderWeeks();
+        const reopened = document.querySelectorAll('.week')[wi];
+        if(reopened) reopened.classList.add('open');
+      });
+    });
+  });
+}
+renderWeeks();
+
+/* ---------- RENDER: PHRASES ---------- */
+let activeCat = PHRASE_CATS[0];
+function renderCatTabs(){
+  const wrap = document.getElementById('catTabs');
+  wrap.innerHTML = '';
+  PHRASE_CATS.forEach(cat=>{
+    const b = document.createElement('button');
+    b.className = 'cat-tab' + (cat===activeCat? ' active':'');
+    b.textContent = cat;
+    b.addEventListener('click', ()=>{ activeCat = cat; renderCatTabs(); renderPhraseList(); });
+    wrap.appendChild(b);
+  });
+}
+function renderPhraseList(){
+  const list = document.getElementById('phraseList');
+  list.innerHTML = phrases[activeCat].map(([fr,en])=>`
+    <div class="phrase">
+      <div class="txt">
+        <div class="fr">${fr}</div>
+        <div class="en">${en}</div>
+      </div>
+      <button class="play-btn" aria-label="Play audio">▶</button>
+    </div>`).join('');
+  list.querySelectorAll('.play-btn').forEach((btn, idx)=>{
+    btn.addEventListener('click', ()=> speak(phrases[activeCat][idx][0]));
+  });
+}
+renderCatTabs();
+renderPhraseList();
+
+/* ---------- RENDER: RESOURCES ---------- */
+function renderResources(){
+  const wrap = document.getElementById('resList');
+  const filtered = activeResType==='All' ? resources : resources.filter(r=>r[3]===activeResType);
+  wrap.innerHTML = filtered.map(([name,url,desc,type,tag])=>`
+    <a class="res-item" href="${url}" target="_blank" rel="noopener">
+      <div class="name">${name}</div>
+      <div class="desc">${desc}</div>
+      <div class="res-tags">
+        <span class="res-tag res-tag-type">${type}</span>
+        <span class="res-tag">${tag}</span>
+      </div>
+    </a>`).join('') || '<p style="font-size:.85rem; color:#5b6664;">No resources in this category.</p>';
+}
+let activeResType = "All";
+function renderResTabs(){
+  const wrap = document.getElementById('resTabs');
+  wrap.innerHTML = '';
+  RES_TYPES.forEach(type=>{
+    const count = type==='All' ? resources.length : resources.filter(r=>r[3]===type).length;
+    if(type!=='All' && count===0) return;
+    const b = document.createElement('button');
+    b.className = 'cat-tab' + (type===activeResType? ' active':'');
+    b.textContent = type==='All' ? `All (${count})` : `${type} (${count})`;
+    b.addEventListener('click', ()=>{ activeResType = type; renderResTabs(); renderResources(); });
+    wrap.appendChild(b);
+  });
+}
+renderResTabs();
+renderResources();
+
+/* ---------- EXERCISES ---------- */
+const exTabs = [
+  {id:'mcq', label:'Multiple choice'},
+  {id:'fill', label:'Fill in the blank'},
+  {id:'listen', label:'Listening dictation'},
+  {id:'build', label:'Sentence builder'},
+  {id:'translate', label:'Translate EN→FR'}
+];
+let activeEx = 'mcq';
+function renderExTabs(){
+  const wrap = document.getElementById('exTabs');
+  wrap.innerHTML = '';
+  exTabs.forEach(t=>{
+    const b = document.createElement('button');
+    b.className = 'ex-tab' + (t.id===activeEx? ' active':'');
+    b.textContent = t.label;
+    b.addEventListener('click', ()=>{ activeEx = t.id; renderExTabs(); renderExBody(); });
+    wrap.appendChild(b);
+  });
+}
+function renderExBody(){
+  const body = document.getElementById('exBody');
+  if(activeEx==='mcq') return renderMCQ(body);
+  if(activeEx==='fill') return renderFill(body);
+  if(activeEx==='listen') return renderListen(body);
+  if(activeEx==='build') return renderBuilder(body);
+  if(activeEx==='translate') return renderTranslate(body);
+}
+renderExTabs();
+
+/* MCQ */
+function renderMCQ(body){
+  let i = 0, score = 0;
+  function show(){
+    if(i >= mcq.length){
+      body.innerHTML = `<div class="card"><div class="score-pill">Score: ${score}/${mcq.length}</div><p>Nice work. Reset to try again.</p><button class="btn btn-primary" id="restart">Restart</button></div>`;
+      body.querySelector('#restart').addEventListener('click', ()=>{ i=0; score=0; show(); });
+      return;
+    }
+    const q = mcq[i];
+    body.innerHTML = `
+      <div class="card question-card">
+        <div class="q-progress">Question ${i+1} of ${mcq.length}</div>
+        <div class="q-prompt">What does this mean?<br><span class="french">«${q.fr}»</span></div>
+        ${q.choices.map((c,idx)=>`<button class="opt" data-idx="${idx}">${c}</button>`).join('')}
+        <div class="feedback" id="fb"></div>
+      </div>`;
+    const opts = body.querySelectorAll('.opt');
+    opts.forEach(opt=>{
+      opt.addEventListener('click', ()=>{
+        opts.forEach(o=>o.disabled = true);
+        const idx = +opt.dataset.idx;
+        const fb = body.querySelector('#fb');
+        if(idx === q.answer){
+          opt.classList.add('correct');
+          fb.textContent = 'Correct!'; fb.className='feedback ok';
+          score++;
+        } else {
+          opt.classList.add('wrong');
+          opts[q.answer].classList.add('correct');
+          fb.textContent = 'Not quite — correct answer highlighted.'; fb.className='feedback bad';
+        }
+        setTimeout(()=>{ i++; show(); }, 900);
+      });
+    });
+  }
+  show();
+}
+
+/* Fill in the blank */
+function renderFill(body){
+  let i = 0, score = 0;
+  function show(){
+    if(i >= fillBlank.length){
+      body.innerHTML = `<div class="card"><div class="score-pill">Score: ${score}/${fillBlank.length}</div><p>Done. Reset to try again.</p><button class="btn btn-primary" id="restart">Restart</button></div>`;
+      body.querySelector('#restart').addEventListener('click', ()=>{ i=0; score=0; show(); });
+      return;
+    }
+    const q = fillBlank[i];
+    body.innerHTML = `
+      <div class="card question-card">
+        <div class="q-progress">Question ${i+1} of ${fillBlank.length}</div>
+        <div class="q-prompt"><span class="french">${q.prompt}</span></div>
+        <input class="fill-input" id="fillIn" placeholder="Type the missing word" autocomplete="off" autocapitalize="off">
+        <div class="ex-btn-row">
+          <button class="btn btn-primary" id="check">Check</button>
+          <button class="btn btn-ghost" id="hintBtn">Hint</button>
+        </div>
+        <div class="feedback" id="fb"></div>
+      </div>`;
+    const input = body.querySelector('#fillIn');
+    body.querySelector('#hintBtn').addEventListener('click', ()=>{
+      body.querySelector('#fb').textContent = q.hint;
+      body.querySelector('#fb').className = 'feedback';
+    });
+    body.querySelector('#check').addEventListener('click', ()=>{
+      const val = input.value.trim().toLowerCase();
+      const fb = body.querySelector('#fb');
+      if(val === q.answer){
+        fb.textContent = 'Correct!'; fb.className='feedback ok'; score++;
+      } else {
+        fb.textContent = `Correct answer: "${q.answer}"`; fb.className='feedback bad';
+      }
+      input.disabled = true;
+      body.querySelector('#check').disabled = true;
+      setTimeout(()=>{ i++; show(); }, 1100);
+    });
+    input.addEventListener('keydown', e=>{ if(e.key==='Enter') body.querySelector('#check').click(); });
+  }
+  show();
+}
+
+/* Listening dictation */
+function renderListen(body){
+  let i = 0, score = 0;
+  const items = listenItems;
+  function show(){
+    if(i >= items.length){
+      body.innerHTML = `<div class="card"><div class="score-pill">Score: ${score}/${items.length}</div><p>That's the set. Reset to try again.</p><button class="btn btn-primary" id="restart">Restart</button></div>`;
+      body.querySelector('#restart').addEventListener('click', ()=>{ i=0; score=0; show(); });
+      return;
+    }
+    const [fr, en] = items[i];
+    body.innerHTML = `
+      <div class="card question-card">
+        <div class="q-progress">Phrase ${i+1} of ${items.length}</div>
+        <p style="font-size:.88rem; color:#5b6664; margin-top:0;">Listen, then type what you hear — French only.</p>
+        <button class="btn btn-primary" id="playBtn" style="margin-bottom:14px;">▶ Play phrase</button>
+        <input class="fill-input" id="dictIn" placeholder="Type what you heard" autocomplete="off" autocapitalize="off">
+        <div class="ex-btn-row">
+          <button class="btn btn-primary" id="check">Check</button>
+          <button class="btn btn-ghost" id="replay">Replay</button>
+        </div>
+        <div class="feedback" id="fb"></div>
+      </div>`;
+    body.querySelector('#playBtn').addEventListener('click', ()=> speak(fr));
+    body.querySelector('#replay').addEventListener('click', ()=> speak(fr));
+    const input = body.querySelector('#dictIn');
+    body.querySelector('#check').addEventListener('click', ()=>{
+      const norm = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^\w\s]/g,'').trim();
+      const fb = body.querySelector('#fb');
+      if(norm(input.value) === norm(fr)){
+        fb.textContent = `Correct! "${fr}" — ${en}`; fb.className='feedback ok'; score++;
+      } else {
+        fb.textContent = `Target: "${fr}" (${en})`; fb.className='feedback bad';
+      }
+      input.disabled = true;
+      body.querySelector('#check').disabled = true;
+      setTimeout(()=>{ i++; show(); }, 1500);
+    });
+    input.addEventListener('keydown', e=>{ if(e.key==='Enter') body.querySelector('#check').click(); });
+    speak(fr);
+  }
+  show();
+}
+
+/* Sentence builder */
+function renderBuilder(body){
+  let i = 0, score = 0;
+  let chosen = [];
+  let pool = [];
+  function show(){
+    if(i >= builderSentences.length){
+      body.innerHTML = `<div class="card"><div class="score-pill">Score: ${score}/${builderSentences.length}</div><p>All done. Reset to try again.</p><button class="btn btn-primary" id="restart">Restart</button></div>`;
+      body.querySelector('#restart').addEventListener('click', ()=>{ i=0; score=0; show(); });
+      return;
+    }
+    const q = builderSentences[i];
+    chosen = [];
+    pool = q.parts.map((p, idx)=>({p, idx})).sort(()=>Math.random()-0.5);
+    body.innerHTML = `
+      <div class="card question-card">
+        <div class="q-progress">Sentence ${i+1} of ${builderSentences.length}</div>
+        <div class="q-prompt">Build: <em>${q.en}</em></div>
+        <div class="builder-answer" id="answerRow"></div>
+        <div class="builder-bank" id="bankRow"></div>
+        <div class="ex-btn-row">
+          <button class="btn btn-primary" id="check">Check</button>
+          <button class="btn btn-ghost" id="clear">Clear</button>
+        </div>
+        <div class="feedback" id="fb"></div>
+      </div>`;
+    renderRows();
+    body.querySelector('#clear').addEventListener('click', ()=>{ chosen = []; pool = q.parts.map((p,idx)=>({p,idx})).sort(()=>Math.random()-0.5); renderRows(); });
+    body.querySelector('#check').addEventListener('click', ()=>{
+      const built = chosen.map(c=>c.p).join(' ').replace(/\s+([,?!])/g,'$1');
+      const fb = body.querySelector('#fb');
+      if(built.toLowerCase() === q.answer.toLowerCase()){
+        fb.textContent = 'Correct!'; fb.className='feedback ok'; score++;
+      } else {
+        fb.textContent = `Target: "${q.answer}"`; fb.className='feedback bad';
+      }
+      setTimeout(()=>{ i++; show(); }, 1300);
+    });
+    function renderRows(){
+      body.querySelector('#answerRow').innerHTML = chosen.map((c,ci)=>`<span class="chip" data-from="answer" data-ci="${ci}">${c.p}</span>`).join('') || '<span style="color:#9aa3a0; font-size:.85rem;">tap words below in order</span>';
+      body.querySelector('#bankRow').innerHTML = pool.map((c,pi)=>`<span class="chip" data-from="bank" data-pi="${pi}">${c.p}</span>`).join('');
+      body.querySelectorAll('[data-from="bank"]').forEach(chip=>{
+        chip.addEventListener('click', ()=>{
+          const pi = +chip.dataset.pi;
+          chosen.push(pool[pi]);
+          pool.splice(pi,1);
+          renderRows();
+        });
+      });
+      body.querySelectorAll('[data-from="answer"]').forEach(chip=>{
+        chip.addEventListener('click', ()=>{
+          const ci = +chip.dataset.ci;
+          pool.push(chosen[ci]);
+          chosen.splice(ci,1);
+          renderRows();
+        });
+      });
+    }
+  }
+  show();
+}
+
+renderExBody();
+
+/* Translate EN -> FR */
+function renderTranslate(body){
+  let i = 0, score = 0;
+  const items = translateItems;
+  function show(){
+    if(i >= items.length){
+      body.innerHTML = `<div class="card"><div class="score-pill">Score: ${score}/${items.length}</div><p>That's the set. Reset to try again.</p><button class="btn btn-primary" id="restart">Restart</button></div>`;
+      body.querySelector('#restart').addEventListener('click', ()=>{ i=0; score=0; show(); });
+      return;
+    }
+    const q = items[i];
+    body.innerHTML = `
+      <div class="card question-card">
+        <div class="q-progress">Phrase ${i+1} of ${items.length}</div>
+        <div class="q-prompt">Translate to French:<br><em>${q.en}</em></div>
+        <input class="fill-input" id="trIn" placeholder="Écris en français" autocomplete="off" autocapitalize="off">
+        <div class="ex-btn-row">
+          <button class="btn btn-primary" id="check">Check</button>
+          <button class="btn btn-ghost" id="playBtn">▶ Hear it</button>
+        </div>
+        <div class="feedback" id="fb"></div>
+      </div>`;
+    const input = body.querySelector('#trIn');
+    body.querySelector('#playBtn').addEventListener('click', ()=> speak(q.fr));
+    body.querySelector('#check').addEventListener('click', ()=>{
+      const norm = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^\w\s]/g,'').trim();
+      const fb = body.querySelector('#fb');
+      if(norm(input.value) === norm(q.fr)){
+        fb.textContent = 'Correct!'; fb.className='feedback ok'; score++;
+      } else {
+        fb.textContent = `Target: "${q.fr}"`; fb.className='feedback bad';
+      }
+      input.disabled = true;
+      body.querySelector('#check').disabled = true;
+      setTimeout(()=>{ i++; show(); }, 1400);
+    });
+    input.addEventListener('keydown', e=>{ if(e.key==='Enter') body.querySelector('#check').click(); });
+  }
+  show();
+}
+</script>
+</body>
+</html>
