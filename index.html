@@ -373,13 +373,200 @@
     header.top h1{ font-size:2rem; }
     .week{ padding:18px; }
   }
+
+  /* header course-switch button */
+  header.top{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+  header.top .hdr-text{ min-width:0; }
+  .course-switch-btn{
+    flex:0 0 auto;
+    position:relative;
+    z-index:1;
+    background: rgba(247,248,251,.12);
+    border:1px solid rgba(247,248,251,.4);
+    color: var(--cream);
+    border-radius:20px;
+    padding:8px 13px;
+    font-size:.74rem;
+    font-weight:700;
+    letter-spacing:.02em;
+    display:flex; align-items:center; gap:6px;
+    cursor:pointer;
+    white-space:nowrap;
+    margin-top:2px;
+  }
+  .course-switch-btn:active{ background: rgba(247,248,251,.24); }
+  .hdr-actions{ display:flex; flex-direction:column; align-items:flex-end; gap:6px; flex:0 0 auto; }
+  .level-badge-btn{
+    background: var(--mustard);
+    border: none;
+    color: var(--teal-deep);
+    border-radius:20px;
+    padding:6px 12px;
+    font-size:.72rem;
+    font-weight:700;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .level-badge-btn:active{ filter: brightness(.92); }
+  .level-back-link{
+    display:block;
+    background:none;
+    border:none;
+    color: var(--mustard);
+    font-size:.82rem;
+    font-weight:700;
+    cursor:pointer;
+    padding:0;
+    margin-bottom:14px;
+  }
+
+  /* landing screen */
+  #appScreen{ display:none; }
+  .landing{
+    min-height:100vh;
+    background: linear-gradient(180deg, var(--teal-deep), var(--teal) 60%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 40px 20px;
+  }
+  .landing-inner{
+    max-width: 480px;
+    width:100%;
+  }
+  .landing-eyebrow{
+    font-size:.7rem;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color: var(--mustard);
+    font-weight:700;
+    text-align:center;
+    margin-bottom:8px;
+  }
+  .landing-title{
+    color: var(--cream);
+    text-align:center;
+    font-size:1.9rem;
+    margin-bottom:8px;
+  }
+  .landing-sub{
+    color: rgba(247,248,251,.75);
+    text-align:center;
+    font-size:.92rem;
+    line-height:1.5;
+    margin:0 0 28px;
+  }
+  .course-grid{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .course-card{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    background: var(--card);
+    border: 1px solid rgba(247,248,251,.18);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    cursor:pointer;
+    text-align:left;
+    box-shadow: 0 6px 18px rgba(15,33,71,.25);
+  }
+  .course-card:active{ transform: scale(.99); }
+  .course-card .flag{
+    flex:0 0 auto;
+    font-size:2.1rem;
+    width:52px; height:52px;
+    display:flex; align-items:center; justify-content:center;
+    background: var(--cream);
+    border-radius:50%;
+  }
+  .course-card .course-info{ flex:1; min-width:0; }
+  .course-card .course-name{
+    font-family: "Iowan Old Style", "Georgia", serif;
+    font-size:1.15rem;
+    color: var(--teal-deep);
+    margin-bottom:2px;
+  }
+  .course-card .course-level{
+    font-size:.78rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.03em;
+    color: var(--rust);
+    margin-bottom:4px;
+  }
+  .course-card .course-desc{
+    font-size:.82rem;
+    color:#5b6664;
+    line-height:1.4;
+  }
+  .course-card .chev{
+    flex:0 0 auto;
+    font-size:1.1rem;
+    color: var(--teal);
+  }
+  .landing-footnote{
+    text-align:center;
+    color: rgba(247,248,251,.55);
+    font-size:.74rem;
+    margin-top:26px;
+  }
 </style>
 </head>
 <body>
 
+<div id="landingScreen" class="landing">
+  <div class="landing-inner">
+    <div class="landing-eyebrow">Language courses</div>
+    <h1 class="landing-title">Which language do you want to learn?</h1>
+    <p class="landing-sub">Pick a course to start a two-month, listening-and-speaking-first study plan. Your progress is saved on this device, per language.</p>
+    <div class="course-grid" id="courseGrid">
+      <button class="course-card" data-course="fr">
+        <div class="flag">🇫🇷</div>
+        <div class="course-info">
+          <div class="course-level">Conversational</div>
+          <div class="course-name">French</div>
+          <div class="course-desc">Go from basics to real, casual conversation in two months.</div>
+        </div>
+        <div class="chev">›</div>
+      </button>
+      <button class="course-card" data-course="nl">
+        <div class="flag">🇳🇱</div>
+        <div class="course-info">
+          <div class="course-level">3 levels · A1–B1</div>
+          <div class="course-name">Dutch</div>
+          <div class="course-desc">Pick your level — from first words to real, independent conversation.</div>
+        </div>
+        <div class="chev">›</div>
+      </button>
+    </div>
+    <div class="landing-footnote">More languages coming later.</div>
+  </div>
+</div>
+
+<div id="levelScreen" class="landing" style="display:none;">
+  <div class="landing-inner">
+    <button class="level-back-link" id="levelBackBtn">‹ All languages</button>
+    <div class="landing-eyebrow" id="levelScreenFlagName">Dutch</div>
+    <h1 class="landing-title" id="levelScreenTitle">Choose your level</h1>
+    <p class="landing-sub">Not sure? Start at A1 — you can switch levels anytime from the app header.</p>
+    <div class="course-grid" id="levelGrid"></div>
+  </div>
+</div>
+
+<div id="appScreen">
+
 <header class="top">
-  <div class="eyebrow">Two-month plan</div>
-  <h1>Parle.</h1>
+  <div class="hdr-text">
+    <div class="eyebrow" id="hdrEyebrow">Two-month plan</div>
+    <h1 id="hdrTitle">Parle.</h1>
+  </div>
+  <div class="hdr-actions">
+    <button class="level-badge-btn" id="levelBadgeBtn" aria-label="Change level" style="display:none;"></button>
+    <button class="course-switch-btn" id="switchCourseBtn" aria-label="Change course">🌐 Courses</button>
+  </div>
 </header>
 
 <main>
@@ -398,7 +585,7 @@
   <!-- PHRASES -->
   <section id="phrases">
     <h2>Phrase bank</h2>
-    <p style="font-size:.85rem; color:#5b6664; margin-top:0;">The chunks worth knowing cold. Tap ▶ to hear them spoken (uses your device's French voice).</p>
+    <p style="font-size:.85rem; color:#5b6664; margin-top:0;" id="phrasesSubtitle">The chunks worth knowing cold. Tap ▶ to hear them spoken (uses your device's voice).</p>
     <div class="cat-tabs" id="catTabs"></div>
     <div class="card" id="phraseList"></div>
   </section>
@@ -438,10 +625,20 @@
   <button data-target="resources"><span class="ic">🔗</span>Resources</button>
 </nav>
 
+</div>
+
 <script>
 /* ---------- DATA ---------- */
 
-const weeks = [
+const COURSES = {
+  fr: {
+    id: "fr",
+    name: "French",
+    appName: "Parle.",
+    pageTitle: "Parle — 2-Month Spoken French Plan",
+    eyebrow: "Two-month plan",
+    langCode: "fr-FR",
+    weeks: [
   {
     title: "Get your ear moving",
     focus: "Listening + sounds",
@@ -530,11 +727,9 @@ const weeks = [
       "Decide your next 2 months: more Pimsleur volume, a tutor on iTalki, or a French-speaking community."
     ]
   }
-];
-
-const PHRASE_CATS = ["Greetings & basics","Everyday verbs","Asking & saying things","Questions","Making plans","Food & café","Opinions & feelings"];
-
-const phrases = {
+    ],
+    PHRASE_CATS: ["Greetings & basics","Everyday verbs","Asking & saying things","Questions","Making plans","Food & café","Opinions & feelings"],
+    phrases: {
   "Greetings & basics": [
     ["Salut, ça va ?","Hey, how's it going?"],
     ["Ça va, et toi ?","I'm good, and you?"],
@@ -618,11 +813,10 @@ const phrases = {
     ["Je suis un peu stressé(e).","I'm a bit stressed."],
     ["C'est vraiment sympa.","That's really nice."],
     ["Ça me fait plaisir.","That makes me happy."]
-  ]
-};
-
-const RES_TYPES = ["All","Podcast","App","Website","Tutor"];
-const resources = [
+    ]
+    },
+    RES_TYPES: ["All","Podcast","App","Website","Tutor"],
+    resources: [
   ["Pimsleur French (free trial lessons)","https://www.pimsleur.com/learn-french","Audio-first course, exactly matches the listen-repeat method this plan uses.","Podcast","Core course"],
   ["Coffee Break French","https://radiolingo.libsyn.com/","Free podcast-style course, alternative to Pimsleur if you prefer it.","Podcast","Core course"],
   ["InnerFrench","https://innerfrench.com/podcast/","Slow, beginner-aimed podcast made specifically for learners.","Podcast","Listening"],
@@ -633,10 +827,10 @@ const resources = [
   ["iTalki","https://www.italki.com/","Paid (cheap) conversation tutors if you want structured speaking practice.","Tutor","Speaking, paid"],
   ["Le Français Facile","https://www.lefrancaisfacile.com/","Free graded readers and simple exercises, for light reading support only.","Website","Reading (optional)"],
   ["Conjugaison Le Monde","https://conjugaison.lemonde.fr/","Free conjugator — look up être/avoir/aller/faire/vouloir/pouvoir as needed.","Website","Reference"]
-];
+    ],
 
-/* exercise question banks */
-const mcq = [
+    /* exercise question banks */
+    mcq: [
   {fr:"Comment tu t'appelles ?", choices:["What's your name?","How are you?","Where are you from?"], answer:0},
   {fr:"J'ai faim.", choices:["I'm tired.","I'm hungry.","I'm happy."], answer:1},
   {fr:"Je voudrais un café, s'il vous plaît.", choices:["I'd like a coffee, please.","I don't like coffee.","Where is the coffee?"], answer:0},
@@ -682,9 +876,9 @@ const mcq = [
   {fr:"Tu rigoles !", choices:["You're laughing!","No way!/You're kidding!","You're crying!"], answer:1},
   {fr:"Il n'y a pas de quoi.", choices:["There's nothing here.","You're welcome / don't mention it.","There's no problem."], answer:1},
   {fr:"Je suis à la bourre.", choices:["I'm running late.","I'm on a break.","I'm exhausted."], answer:0}
-];
+    ],
 
-const fillBlank = [
+    fillBlank: [
   {prompt:"___ voudrais un café.", answer:"je", hint:"I would like a coffee."},
   {prompt:"Je ___ de finir le travail.", answer:"viens", hint:"I just finished work (je viens de + verb)."},
   {prompt:"Qu'est-ce que tu ___ ce soir ?", answer:"fais", hint:"What are you doing tonight?"},
@@ -705,11 +899,9 @@ const fillBlank = [
   {prompt:"On ___ un dessert ?", answer:"prend", hint:"Shall we get a dessert? (prendre)"},
   {prompt:"J'___ beaucoup ça.", answer:"aime", hint:"I like that a lot (aimer)."},
   {prompt:"Je ___ que c'est une bonne idée.", answer:"pense", hint:"I think it's a good idea (penser)."}
-];
+    ],
 
-const listenItems = Object.values(phrases).flat();
-
-const builderSentences = [
+    builderSentences: [
   {parts:["Je","vais","arriver","en retard"], answer:"Je vais arriver en retard", en:"I'm going to be late."},
   {parts:["Je","viens","de","finir","le travail"], answer:"Je viens de finir le travail", en:"I just finished work."},
   {parts:["Tu","veux","venir","avec nous","?"], answer:"Tu veux venir avec nous ?", en:"Do you want to come with us?"},
@@ -722,10 +914,10 @@ const builderSentences = [
   {parts:["On","peut","se retrouver","chez moi"], answer:"On peut se retrouver chez moi", en:"We can meet at my place."},
   {parts:["Je","suis","libre","vendredi"], answer:"Je suis libre vendredi", en:"I'm free on Friday."},
   {parts:["Est-ce que","tu","peux","répéter","?"], answer:"Est-ce que tu peux répéter ?", en:"Can you repeat that?"}
-];
+    ],
 
-/* Translate EN -> FR */
-const translateItems = [
+    /* Translate EN -> FR */
+    translateItems: [
   {en:"Hey, how's it going?", fr:"Salut, ça va ?"},
   {en:"What's your name?", fr:"Comment tu t'appelles ?"},
   {en:"I'm tired.", fr:"Je suis fatigué(e)."},
@@ -746,10 +938,10 @@ const translateItems = [
   {en:"I think it's a good idea.", fr:"Je pense que c'est une bonne idée."},
   {en:"I can't wait!", fr:"J'ai hâte !"},
   {en:"That's really nice.", fr:"C'est vraiment sympa."}
-];
+    ],
 
-/* weekly quizzes — themed to each week's focus */
-const quizWeeks = [
+    /* weekly quizzes — themed to each week's focus */
+    quizWeeks: [
   [ // Week 1: Greetings & sounds
     {fr:"Salut, ça va ?", choices:["Goodbye!","Hey, how's it going?","Thank you."], answer:1},
     {fr:"Comment tu t'appelles ?", choices:["What's your name?","Where do you live?","How old are you?"], answer:0},
@@ -845,8 +1037,1125 @@ const quizWeeks = [
     {fr:"Je suis un peu stressé(e).", choices:["I'm a bit stressed.","I'm very happy.","I'm a bit tired."], answer:0},
     {fr:"On se rejoint à quelle heure ?", choices:["Where should we meet?","What time should we meet up?","When are you free?"], answer:1},
     {fr:"Je n'ai pas le temps.", choices:["I don't have time.","I'm not on time.","I have plenty of time."], answer:0}
-  ]
-];
+    ]
+    ]
+  },
+
+  nl: {
+    id: "nl",
+    name: "Dutch",
+    flag: "🇳🇱",
+    appName: "Praat.",
+    langCode: "nl-NL",
+    levels: {
+      a1: {
+    id: "a1",
+    label: "A1 · Beginner",
+    desc: "Build your first everyday Dutch — greetings, questions, and simple chat.",
+    pageTitle: "Praat — 2-Month Dutch A1 Plan",
+    eyebrow: "Two-month plan · A1",
+    weeks: [
+      {
+        title: "Get your ear moving",
+        focus: "Listening + sounds",
+        summary: "Stop collecting words. Start hearing how Dutch actually sounds and flows.",
+        details: [
+          "DutchPod101 (or Language Transfer Dutch) — Lessons 1–3, out loud, every day.",
+          "5–10 min passive listening daily: Slow Dutch Podcast (slow, beginner-aimed).",
+          "Learn the core verbs by sound, not spelling: zijn, hebben, gaan, doen — just present tense (ik ben/heb/ga/doe).",
+          "In this app: go through the 'Greetings & basics' and 'Everyday verbs' phrase categories, play every audio."
+        ]
+      },
+      {
+        title: "Survival phrases",
+        focus: "Speaking",
+        summary: "Build the chunks you'd actually need in the first minute of a real conversation.",
+        details: [
+          "DutchPod101/Language Transfer Lessons 4–6, repeating out loud until it feels automatic, not read.",
+          "Memorise 'Asking & saying things' phrase category here — these are reusable templates.",
+          "Start narrating your day out loud in Dutch for 5 min (even badly): 'ik eet... ik ga...'.",
+          "Do the Multiple Choice exercises in this app daily, 5 min."
+        ]
+      },
+      {
+        title: "Questions & connecting",
+        focus: "Speaking + listening",
+        summary: "Conversation is mostly questions and reactions. Get fluent in asking, not just answering.",
+        details: [
+          "DutchPod101/Language Transfer Lessons 7–9.",
+          "Add: NT2Taalmenu (free) for extra question-word drills at your level.",
+          "Drill the 'Questions' phrase category — hoe, waarom, waar, wanneer, hoeveel.",
+          "Try your first short exchange on Tandem or HelloTalk (free language exchange apps) — even 5 minutes."
+        ]
+      },
+      {
+        title: "Near future & recent past",
+        focus: "Sentence building",
+        summary: "Two constructions unlock most casual conversation: 'ik ga + infinitief' and 'ik heb net ... gedaan'.",
+        details: [
+          "DutchPod101/Language Transfer Lessons 10–12.",
+          "This app: Sentence Builder exercises — focus on future/recent-past chunks.",
+          "Listening: pick one Slow Dutch Podcast episode, listen twice, no subtitles second time.",
+          "Conversation check-in #2 on Tandem/HelloTalk, try using ik ga / ik heb net at least 3 times."
+        ]
+      },
+      {
+        title: "Midpoint review",
+        focus: "Consolidation",
+        summary: "No new material — fill the gaps and notice what's actually sticking.",
+        details: [
+          "Re-listen to Lessons 1–6 without looking anything up.",
+          "Go through every phrase category in this app and re-test yourself with Listening Dictation exercises.",
+          "Light reading support only: try Oefenen.nl (free, graded easy texts) for 10 min if curious — not required.",
+          "Have one longer (10–15 min) voice chat on Tandem/HelloTalk."
+        ]
+      },
+      {
+        title: "Everyday situations",
+        focus: "Speaking",
+        summary: "Café, shopping, making plans — the scenarios that come up with friends constantly.",
+        details: [
+          "Lessons 13–15.",
+          "Add 'Making plans' and 'Food & café' phrase categories here, audio-first.",
+          "Watch one short Dutch YouTube clip with Dutch subtitles on (not English) — train ear+eye together.",
+          "Practice ordering/making plans out loud, then try it for real on Tandem/HelloTalk."
+        ]
+      },
+      {
+        title: "Opinions & feelings",
+        focus: "Speaking + listening",
+        summary: "Friendship-level talk needs opinions: ik vind, ik denk dat, dat bevalt me, dat irriteert me.",
+        details: [
+          "Lessons 16–18.",
+          "Drill 'Opinions & feelings' phrase category.",
+          "Listening: a full Slow Dutch Podcast episode with zero subtitles.",
+          "Conversation goal: express a real opinion about something (a film, food, your week) unscripted."
+        ]
+      },
+      {
+        title: "Put it together",
+        focus: "Free conversation",
+        summary: "Less new input, more producing language freely. This week is about output.",
+        details: [
+          "Free-talk for at least 20 min total across 2+ Tandem/HelloTalk sessions, no script.",
+          "Replay every phrase category here once, aiming for instant recall before the English shows.",
+          "Take the Listening Dictation and Sentence Builder exercises again — compare to week 1 scores.",
+          "Decide your next 2 months: more structured lessons, a tutor on iTalki, or a Dutch-speaking community."
+        ]
+      }
+    ],
+    PHRASE_CATS: ["Greetings & basics","Everyday verbs","Asking & saying things","Questions","Making plans","Food & café","Opinions & feelings"],
+    phrases: {
+      "Greetings & basics": [
+        ["Hoi, hoe gaat het?","Hey, how's it going?"],
+        ["Goed, en met jou?","I'm good, and you?"],
+        ["Hoe heet je?","What's your name?"],
+        ["Ik heet...","My name is..."],
+        ["Leuk je te ontmoeten.","Nice to meet you."],
+        ["Tot straks!","See you later!"],
+        ["Tot snel.","See you soon."],
+        ["Heel erg bedankt.","Thank you very much."],
+        ["Graag gedaan.","You're welcome."],
+        ["Sorry, ik begrijp het niet.","Sorry, I don't understand."]
+      ],
+      "Everyday verbs": [
+        ["Ik ben moe.","I'm tired."],
+        ["Ik heb honger.","I'm hungry."],
+        ["Ik heb dorst.","I'm thirsty."],
+        ["Het gaat goed met mij.","I'm doing well."],
+        ["Ik doe boodschappen.","I'm running errands."],
+        ["Ik heb zin om uit te gaan.","I feel like going out."],
+        ["Ik heb geen tijd.","I don't have time."],
+        ["Ik kan je helpen.","I can help you."],
+        ["Ik wil het proberen.","I want to try."],
+        ["Ik moet gaan.","I have to leave."]
+      ],
+      "Asking & saying things": [
+        ["Kun je dat herhalen?","Can you repeat that?"],
+        ["Ik wil graag...","I would like..."],
+        ["Kun je me helpen?","Can you help me?"],
+        ["Wat doe je?","What are you doing?"],
+        ["Ik weet het niet.","I don't know."],
+        ["Dat hangt ervan af.","It depends."],
+        ["Je hebt gelijk.","You're right."],
+        ["Het geeft niet.","It's no big deal."],
+        ["Laat me nadenken.","Let me think."],
+        ["Ik ben het ermee eens.","I agree."]
+      ],
+      "Questions": [
+        ["Hoe is het gegaan?","How did it go?"],
+        ["Waarom niet?","Why not?"],
+        ["Waar spreken we af?","Where should we meet?"],
+        ["Wanneer ben je vrij?","When are you free?"],
+        ["Hoeveel kost het?","How much does it cost?"],
+        ["Is het ver van hier?","Is it far from here?"],
+        ["Wat vind je ervan?","What do you think about it?"],
+        ["Hoe laat is het?","What time is it?"],
+        ["Wat doe je vanavond?","What are you doing tonight?"],
+        ["Hoe lang duurt het?","How long does it take?"]
+      ],
+      "Making plans": [
+        ["Wanneer zien we elkaar?","When are we seeing each other?"],
+        ["Heb je zin om iets te drinken?","Want to go grab a drink?"],
+        ["Ik ben vrijdag vrij.","I'm free on Friday."],
+        ["We kunnen bij mij afspreken.","We can meet at my place."],
+        ["Ik ben net klaar met werken.","I just finished work."],
+        ["Ik ga te laat aankomen.","I'm going to be late."],
+        ["Gaan we lopen of met de auto?","Are we walking or driving?"],
+        ["Wil je met ons meekomen?","Do you want to come with us?"],
+        ["Hoe laat spreken we af?","What time should we meet up?"],
+        ["Ik bevestig het morgen.","I'll confirm tomorrow."]
+      ],
+      "Food & café": [
+        ["Ik wil graag een koffie, alstublieft.","I'd like a coffee, please."],
+        ["De rekening, alstublieft.","The check, please."],
+        ["Het is heerlijk!","It's delicious!"],
+        ["Ik vind dat niet zo lekker.","I don't really like that."],
+        ["Zullen we het delen?","Shall we split it?"],
+        ["Voor mij wordt het...","For me, it'll be..."],
+        ["Heeft u een tafel voor twee?","Do you have a table for two?"],
+        ["Ik ben vegetariër.","I'm vegetarian."],
+        ["Het ruikt heel lekker.","That smells really good."],
+        ["Zullen we een toetje nemen?","Shall we get a dessert?"]
+      ],
+      "Opinions & feelings": [
+        ["Ik vind dat heel leuk.","I like that a lot."],
+        ["Ik denk dat het een goed idee is.","I think it's a good idea."],
+        ["Dat bevalt me.","I like it (it pleases me)."],
+        ["Dat irriteert me een beetje.","It annoys me a little."],
+        ["Ik ben blij je te zien.","I'm happy to see you."],
+        ["Het maakt mij niet uit.","I don't mind."],
+        ["Ik kan niet wachten!","I can't wait!"],
+        ["Ik ben een beetje gestrest.","I'm a bit stressed."],
+        ["Dat is echt leuk.","That's really nice."],
+        ["Dat maakt me blij.","That makes me happy."]
+      ]
+    },
+    RES_TYPES: ["All","Podcast","App","Website","Tutor"],
+    resources: [
+      ["DutchPod101 (free trial lessons)","https://www.dutchpod101.com/","Audio-first course with structured beginner lessons, matches the listen-repeat method this plan uses.","Podcast","Core course"],
+      ["Slow Dutch Podcast","https://open.spotify.com/show/slowdutch","Slow, clearly-spoken podcast made for learners.","Podcast","Listening"],
+      ["NT2Taalmenu","https://www.nt2taalmenu.nl/","Free grammar explanations and exercises for learners of Dutch as a second language.","Website","Grammar"],
+      ["Oefenen.nl","https://www.oefenen.nl/","Free graded reading and simple exercises, for light reading support only.","Website","Reading (optional)"],
+      ["Tandem","https://www.tandem.net/","Free language exchange app — text or voice with native Dutch speakers.","App","Speaking"],
+      ["HelloTalk","https://www.hellotalk.com/","Alternative free language exchange app, similar to Tandem.","App","Speaking"],
+      ["Duolingo Dutch","https://www.duolingo.com/course/nl/en/Learn-Dutch","Use only as a vocab top-up, not your main method.","App","Vocab supplement"],
+      ["iTalki","https://www.italki.com/","Paid (cheap) conversation tutors if you want structured speaking practice.","Tutor","Speaking, paid"],
+      ["Van Dale","https://www.vandale.nl/","Free online dictionary — look up words and their forms as needed.","Website","Reference"]
+    ],
+
+    /* exercise question banks */
+    mcq: [
+      {fr:"Hoe heet je?", choices:["What's your name?","How are you?","Where are you from?"], answer:0},
+      {fr:"Ik heb honger.", choices:["I'm tired.","I'm hungry.","I'm happy."], answer:1},
+      {fr:"Ik wil graag een koffie, alstublieft.", choices:["I'd like a coffee, please.","I don't like coffee.","Where is the coffee?"], answer:0},
+      {fr:"Heb je zin om iets te drinken?", choices:["Do you have a drink?","Want to go grab a drink?","Is the drink ready?"], answer:1},
+      {fr:"Ik ben net klaar met werken.", choices:["I'm going to finish work.","I love my work.","I just finished work."], answer:2},
+      {fr:"Wat vind je ervan?", choices:["What do you think about it?","What are you doing?","What time is it?"], answer:0},
+      {fr:"Ik ben een beetje gestrest.", choices:["I'm a bit stressed.","I'm very happy.","I'm a bit tired."], answer:0},
+      {fr:"Hoe laat spreken we af?", choices:["Where should we meet?","What time should we meet up?","When are you free?"], answer:1},
+      {fr:"Sorry, ik begrijp het niet.", choices:["Sorry, I'm late.","Sorry, I don't understand.","Sorry, I don't know."], answer:1},
+      {fr:"Het maakt mij niet uit.", choices:["I don't mind.","It bothers me.","I don't know."], answer:0},
+      {fr:"Leuk je te ontmoeten.", choices:["Nice to meet you.","See you soon.","Thank you."], answer:0},
+      {fr:"Ik heb zin om uit te gaan.", choices:["I have to leave.","I feel like going out.","I'm going out tonight."], answer:1},
+      {fr:"Ik heb geen tijd.", choices:["I don't have time.","I'm not on time.","I have plenty of time."], answer:0},
+      {fr:"Laat me nadenken.", choices:["Let me think.","Leave me alone.","I already thought about it."], answer:0},
+      {fr:"Het geeft niet.", choices:["It's serious.","It's no big deal.","It's heavy."], answer:1},
+      {fr:"Wanneer ben je vrij?", choices:["When are you free?","Are you free now?","When did you arrive?"], answer:0},
+      {fr:"Is het ver van hier?", choices:["Is it far from here?","Is it close by?","Where is it?"], answer:0},
+      {fr:"Hoe laat is het?", choices:["What day is it?","What time is it?","How long does it take?"], answer:1},
+      {fr:"Ik ben vrijdag vrij.", choices:["I'm busy Friday.","I'm free on Friday.","I leave on Friday."], answer:1},
+      {fr:"Gaan we lopen of met de auto?", choices:["Are we walking or driving?","Where are we going?","Is it far on foot?"], answer:0},
+      {fr:"Wil je met ons meekomen?", choices:["Are you coming alone?","Do you want to come with us?","Where are you going?"], answer:1},
+      {fr:"De rekening, alstublieft.", choices:["The menu, please.","The check, please.","A table, please."], answer:1},
+      {fr:"Heeft u een tafel voor twee?", choices:["Do you have a table for two?","Is the table free?","Can I sit here?"], answer:0},
+      {fr:"Ik ben vegetariër.", choices:["I'm vegetarian.","I'm hungry.","I don't eat dessert."], answer:0},
+      {fr:"Zullen we een toetje nemen?", choices:["Did you eat dessert?","Shall we get a dessert?","Is there dessert?"], answer:1},
+      {fr:"Ik vind dat heel leuk.", choices:["I don't really like that.","I like that a lot.","I never tried that."], answer:1},
+      {fr:"Dat irriteert me een beetje.", choices:["It annoys me a little.","It makes me happy.","It surprises me."], answer:0},
+      {fr:"Ik kan niet wachten!", choices:["I'm worried!","I can't wait!","I'm exhausted!"], answer:1},
+      {fr:"Dat is echt leuk.", choices:["That's really nice.","That's really hard.","That's really far."], answer:0},
+      {fr:"Dat maakt me blij.", choices:["That makes me happy.","That bothers me.","That surprises me."], answer:0},
+      {fr:"Heb je goed geslapen?", choices:["Did you sleep well?","Are you sleepy?","Did you wake up early?"], answer:0},
+      {fr:"Het spijt me van de vertraging.", choices:["I'm sorry I'm early.","I'm sorry for the delay.","I'm not sorry."], answer:1}
+    ],
+
+    fillBlank: [
+      {prompt:"___ wil graag een koffie.", answer:"ik", hint:"I would like a coffee."},
+      {prompt:"Ik ___ net klaar met werken.", answer:"ben", hint:"I just finished work (ik ben net klaar...)."},
+      {prompt:"Wat ___ je vanavond?", answer:"doe", hint:"What are you doing tonight?"},
+      {prompt:"Ik ___ te laat aankomen.", answer:"ga", hint:"I'm going to be late (near future with gaan)."},
+      {prompt:"Je ___ gelijk.", answer:"hebt", hint:"You're right (hebben)."},
+      {prompt:"Heb je ___ om iets te drinken?", answer:"zin", hint:"Want to go grab a drink? (zin hebben om)"},
+      {prompt:"Ik ___ het ermee eens.", answer:"ben", hint:"I agree (zijn)."},
+      {prompt:"Hoeveel ___ het?", answer:"kost", hint:"How much does it cost?"},
+      {prompt:"Ik ___ honger.", answer:"heb", hint:"I'm hungry (hebben)."},
+      {prompt:"Het ___ goed met mij.", answer:"gaat", hint:"I'm doing well (gaan)."},
+      {prompt:"Ik ___ je helpen.", answer:"kan", hint:"I can help you (kunnen)."},
+      {prompt:"Ik ___ het proberen.", answer:"wil", hint:"I want to try (willen)."},
+      {prompt:"Ik ___ gaan.", answer:"moet", hint:"I have to leave (moeten)."},
+      {prompt:"Hoe laat ___ we af?", answer:"spreken", hint:"What time should we meet up? (afspreken)"},
+      {prompt:"Ik ___ vrijdag vrij.", answer:"ben", hint:"I'm free on Friday (zijn)."},
+      {prompt:"___ je met ons meekomen?", answer:"wil", hint:"Do you want to come with us?"},
+      {prompt:"Ik ___ vegetariër.", answer:"ben", hint:"I'm vegetarian (zijn)."},
+      {prompt:"Zullen we een toetje ___?", answer:"nemen", hint:"Shall we get a dessert? (nemen)"},
+      {prompt:"Ik ___ dat heel leuk.", answer:"vind", hint:"I like that a lot (vinden)."},
+      {prompt:"Ik ___ dat het een goed idee is.", answer:"denk", hint:"I think it's a good idea (denken)."}
+    ],
+
+    builderSentences: [
+      {parts:["Ik","ga","te laat","aankomen"], answer:"Ik ga te laat aankomen", en:"I'm going to be late."},
+      {parts:["Ik","ben","net","klaar","met werken"], answer:"Ik ben net klaar met werken", en:"I just finished work."},
+      {parts:["Wil","je","met ons","meekomen","?"], answer:"Wil je met ons meekomen?", en:"Do you want to come with us?"},
+      {parts:["Ik","wil","graag","een koffie",",","alstublieft"], answer:"Ik wil graag een koffie, alstublieft", en:"I'd like a coffee, please."},
+      {parts:["Wanneer","zien","we","elkaar","?"], answer:"Wanneer zien we elkaar?", en:"When are we seeing each other?"},
+      {parts:["Ik","denk","dat","het","een goed idee is"], answer:"Ik denk dat het een goed idee is", en:"I think it's a good idea."},
+      {parts:["Hoe","heet","je","?"], answer:"Hoe heet je?", en:"What's your name?"},
+      {parts:["Ik","ben","blij","je te zien"], answer:"Ik ben blij je te zien", en:"I'm happy to see you."},
+      {parts:["Wat","doe","je","vanavond","?"], answer:"Wat doe je vanavond?", en:"What are you doing tonight?"},
+      {parts:["We","kunnen","bij mij","afspreken"], answer:"We kunnen bij mij afspreken", en:"We can meet at my place."},
+      {parts:["Ik","ben","vrijdag","vrij"], answer:"Ik ben vrijdag vrij", en:"I'm free on Friday."},
+      {parts:["Kun","je","dat","herhalen","?"], answer:"Kun je dat herhalen?", en:"Can you repeat that?"}
+    ],
+
+    /* Translate EN -> NL */
+    translateItems: [
+      {en:"Hey, how's it going?", fr:"Hoi, hoe gaat het?"},
+      {en:"What's your name?", fr:"Hoe heet je?"},
+      {en:"I'm tired.", fr:"Ik ben moe."},
+      {en:"I'm hungry.", fr:"Ik heb honger."},
+      {en:"I can help you.", fr:"Ik kan je helpen."},
+      {en:"I would like...", fr:"Ik wil graag..."},
+      {en:"I don't know.", fr:"Ik weet het niet."},
+      {en:"I agree.", fr:"Ik ben het ermee eens."},
+      {en:"How much does it cost?", fr:"Hoeveel kost het?"},
+      {en:"What time is it?", fr:"Hoe laat is het?"},
+      {en:"When are we seeing each other?", fr:"Wanneer zien we elkaar?"},
+      {en:"I'm free on Friday.", fr:"Ik ben vrijdag vrij."},
+      {en:"I just finished work.", fr:"Ik ben net klaar met werken."},
+      {en:"Do you want to come with us?", fr:"Wil je met ons meekomen?"},
+      {en:"The check, please.", fr:"De rekening, alstublieft."},
+      {en:"It's delicious!", fr:"Het is heerlijk!"},
+      {en:"I like that a lot.", fr:"Ik vind dat heel leuk."},
+      {en:"I think it's a good idea.", fr:"Ik denk dat het een goed idee is."},
+      {en:"I can't wait!", fr:"Ik kan niet wachten!"},
+      {en:"That's really nice.", fr:"Dat is echt leuk."}
+    ],
+
+    /* weekly quizzes — themed to each week's focus */
+    quizWeeks: [
+      [ // Week 1: Greetings & sounds
+        {fr:"Hoi, hoe gaat het?", choices:["Goodbye!","Hey, how's it going?","Thank you."], answer:1},
+        {fr:"Hoe heet je?", choices:["What's your name?","Where do you live?","How old are you?"], answer:0},
+        {fr:"Ik heet...", choices:["I live in...","My name is...","I am from..."], answer:1},
+        {fr:"Heel erg bedankt.", choices:["You're welcome.","Thank you very much.","Excuse me."], answer:1},
+        {fr:"Ik ben moe.", choices:["I'm tired.","I'm happy.","I'm hungry."], answer:0},
+        {fr:"Ik heb honger.", choices:["I'm thirsty.","I'm hungry.","I'm tired."], answer:1},
+        {fr:"Goedenavond!", choices:["Good morning!","Good evening!","Good night!"], answer:1},
+        {fr:"Tot snel!", choices:["See you soon!","Goodbye forever!","Good night!"], answer:0},
+        {fr:"Goed, en met jou?", choices:["I'm fine, and you?","What's that?","Where are you?"], answer:0},
+        {fr:"Ik heb dorst.", choices:["I'm hungry.","I'm thirsty.","I'm tired."], answer:1}
+      ],
+      [ // Week 2: Survival phrases / speaking
+        {fr:"Ik wil graag...", choices:["I would like...","I have...","I want to leave..."], answer:0},
+        {fr:"Kun je me helpen?", choices:["Can you help me?","Are you free?","Can I help you?"], answer:0},
+        {fr:"Ik weet het niet.", choices:["I don't know.","I don't understand.","I don't have time."], answer:0},
+        {fr:"Ik ben het ermee eens.", choices:["I disagree.","I agree.","I'm not sure."], answer:1},
+        {fr:"Het geeft niet.", choices:["It's serious.","It's no big deal.","It's expensive."], answer:1},
+        {fr:"Wat doe je?", choices:["What are you doing?","Where are you?","Who is that?"], answer:0},
+        {fr:"Ik ben de weg kwijt.", choices:["I'm lost.","I'm late.","I'm tired."], answer:0},
+        {fr:"Kunt u me helpen, alstublieft?", choices:["Can you help me, please?","Can I sit here?","Where is the help desk?"], answer:0},
+        {fr:"Het spijt me.", choices:["I'm happy.","I'm sorry.","I'm hungry."], answer:1},
+        {fr:"Hoe zeg je dat in het Nederlands?", choices:["How do you say that in Dutch?","What does that mean?","Where can I learn Dutch?"], answer:0}
+      ],
+      [ // Week 3: Questions
+        {fr:"Waarom niet?", choices:["Why not?","Why is that?","What for?"], answer:0},
+        {fr:"Waar spreken we af?", choices:["When do we meet?","Where should we meet?","Why do we meet?"], answer:1},
+        {fr:"Hoeveel kost het?", choices:["How much does it cost?","How long does it take?","How far is it?"], answer:0},
+        {fr:"Wat vind je ervan?", choices:["What do you think about it?","What are you doing?","What time is it?"], answer:0},
+        {fr:"Hoe laat is het?", choices:["What day is it?","What time is it?","How long is it?"], answer:1},
+        {fr:"Wanneer ben je vrij?", choices:["When are you free?","Are you busy?","Where are you?"], answer:0},
+        {fr:"Wie is dat?", choices:["Who is it?","What is it?","Where is it?"], answer:0},
+        {fr:"Hoe werkt dat?", choices:["How does it work?","Where does it go?","Why is it broken?"], answer:0},
+        {fr:"Wat gebeurt er?", choices:["What's happening?","Who's coming?","Where are we going?"], answer:0},
+        {fr:"Sinds wanneer?", choices:["Since when?","Until when?","How long?"], answer:0}
+      ],
+      [ // Week 4: Near future & recent past
+        {fr:"Ik ben net klaar met werken.", choices:["I'm about to finish work.","I just finished work.","I will finish work."], answer:1},
+        {fr:"Ik ga te laat aankomen.", choices:["I just arrived late.","I'm going to be late.","I was late yesterday."], answer:1},
+        {fr:"Wanneer zien we elkaar?", choices:["When are we seeing each other?","Did we see each other?","Why see each other?"], answer:0},
+        {fr:"Ik ben vrijdag vrij.", choices:["I worked on Friday.","I'm free on Friday.","I'm busy on Friday."], answer:1},
+        {fr:"Kun je dat herhalen?", choices:["Can you repeat that?","Did you understand?","Can you wait?"], answer:0},
+        {fr:"Ik denk dat het een goed idee is.", choices:["I think it's a good idea.","I had a good idea.","I don't have an idea."], answer:0},
+        {fr:"We gaan vanavond uit.", choices:["We went out last night.","We're going out tonight.","We never go out."], answer:1},
+        {fr:"Ik ben net aangekomen.", choices:["I'm about to arrive.","I just arrived.","I arrived yesterday."], answer:1},
+        {fr:"Je zult het zien.", choices:["You'll see.","You saw it.","You see it now."], answer:0},
+        {fr:"Ik ben nog niet begonnen.", choices:["I haven't started yet.","I just started.","I already finished."], answer:0}
+      ],
+      [ // Week 5: Midpoint review (mix of weeks 1-4)
+        {fr:"Leuk je te ontmoeten.", choices:["Nice to meet you.","See you later.","Good night."], answer:0},
+        {fr:"Ik kan je helpen.", choices:["I need your help.","I can help you.","Help me, please."], answer:1},
+        {fr:"Hoe is het gegaan?", choices:["How did it go?","How are you?","What happened next?"], answer:0},
+        {fr:"Ik ben net klaar met werken.", choices:["I'm finishing work now.","I just finished work.","I never finish work."], answer:1},
+        {fr:"Is het ver van hier?", choices:["Is it close by?","Is it far from here?","Where is it?"], answer:1},
+        {fr:"Ik ben het ermee eens.", choices:["I agree.","I'm not sure.","I disagree."], answer:0},
+        {fr:"Kun je me helpen?", choices:["Can you help me?","Are you free?","Can I help you?"], answer:0},
+        {fr:"Heel erg bedankt.", choices:["You're welcome.","Thank you very much.","Excuse me."], answer:1},
+        {fr:"Hoeveel kost het?", choices:["How much does it cost?","How long does it take?","How far is it?"], answer:0},
+        {fr:"Ik ga te laat aankomen.", choices:["I just arrived late.","I'm going to be late.","I was late yesterday."], answer:1}
+      ],
+      [ // Week 6: Everyday situations (plans, food/café)
+        {fr:"Heb je zin om iets te drinken?", choices:["Do you want a glass of water?","Want to go grab a drink?","Is the glass empty?"], answer:1},
+        {fr:"We kunnen bij mij afspreken.", choices:["We can meet at my place.","We can't meet today.","Let's meet at a café."], answer:0},
+        {fr:"De rekening, alstublieft.", choices:["The menu, please.","A table, please.","The check, please."], answer:2},
+        {fr:"Ik ben vegetariër.", choices:["I'm vegetarian.","I'm allergic.","I'm hungry."], answer:0},
+        {fr:"Zullen we het delen?", choices:["Shall we split it?","Are you sharing?","Is it shared already?"], answer:0},
+        {fr:"Gaan we lopen of met de auto?", choices:["Are we walking or driving?","Where are we going?","When do we leave?"], answer:0},
+        {fr:"Heeft u een tafel voor twee?", choices:["Do you have a table for two?","Is the table free?","Can I sit here?"], answer:0},
+        {fr:"Wat kunt u aanbevelen?", choices:["What do you recommend?","What did you order?","What's the price?"], answer:0},
+        {fr:"Zullen we een toetje nemen?", choices:["Did you eat dessert?","Shall we get a dessert?","Is there dessert?"], answer:1},
+        {fr:"Het is heel lekker!", choices:["It's very good!","It's too much!","It's too spicy!"], answer:0}
+      ],
+      [ // Week 7: Opinions & feelings
+        {fr:"Ik vind dat heel leuk.", choices:["I don't like that.","I like that a lot.","I've never tried that."], answer:1},
+        {fr:"Dat irriteert me een beetje.", choices:["It annoys me a little.","It makes me happy.","It surprises me."], answer:0},
+        {fr:"Ik kan niet wachten!", choices:["I'm exhausted!","I can't wait!","I'm worried!"], answer:1},
+        {fr:"Dat maakt me blij.", choices:["That makes me happy.","That bothers me.","That confuses me."], answer:0},
+        {fr:"Ik ben een beetje gestrest.", choices:["I'm a bit stressed.","I'm very relaxed.","I'm a bit tired."], answer:0},
+        {fr:"Dat is echt leuk.", choices:["That's really hard.","That's really nice.","That's really far."], answer:1},
+        {fr:"Dat maakt me een beetje ongerust.", choices:["It worries me a little.","It bores me.","It delights me."], answer:0},
+        {fr:"Ik ben trots op je.", choices:["I'm proud of you.","I'm afraid of you.","I'm tired of you."], answer:0},
+        {fr:"Het maakt me helemaal niet uit.", choices:["It doesn't bother me at all.","It bothers me a lot.","I don't understand at all."], answer:0},
+        {fr:"Ik heb er genoeg van.", choices:["I'm fed up.","I'm delighted.","I'm curious."], answer:0}
+      ],
+      [ // Week 8: Full mix, hardest review
+        {fr:"Ik ben net klaar met werken.", choices:["I just finished work.","I'm going to finish work.","I finished work yesterday."], answer:0},
+        {fr:"Heb je zin om iets te drinken?", choices:["Want to go grab a drink?","Do you have a drink?","Is the drink ready?"], answer:0},
+        {fr:"Ik denk dat het een goed idee is.", choices:["I think it's a good idea.","I doubt it's a good idea.","It was a good idea."], answer:0},
+        {fr:"Hoeveel kost het?", choices:["How much does it cost?","How long does it take?","Where is it?"], answer:0},
+        {fr:"Hoe laat spreken we af?", choices:["What time should we meet up?","Where should we meet?","Who's joining us?"], answer:0},
+        {fr:"Het maakt mij niet uit.", choices:["I don't mind.","It bothers me a lot.","I disagree."], answer:0},
+        {fr:"Kun je dat herhalen?", choices:["Can you repeat that?","Did you understand?","Can you wait?"], answer:0},
+        {fr:"Ik ben een beetje gestrest.", choices:["I'm a bit stressed.","I'm very happy.","I'm a bit tired."], answer:0},
+        {fr:"Waar spreken we af?", choices:["Where should we meet?","What time should we meet up?","When are you free?"], answer:0},
+        {fr:"Ik heb geen tijd.", choices:["I don't have time.","I'm not on time.","I have plenty of time."], answer:0}
+      ]
+    ]
+      }, // end a1
+
+      a2: {
+        id: "a2",
+        label: "A2 · Elementary",
+        desc: "Handle daily routines, shopping, and simple past-tense conversations.",
+        pageTitle: "Praat — 2-Month Dutch A2 Plan",
+        eyebrow: "Two-month plan · A2",
+        weeks: [
+          {
+            title: "Everyday life in more detail",
+            focus: "Speaking + vocabulary",
+            summary: "Move past survival Dutch — start describing your normal day with real detail.",
+            details: [
+              "DutchPod101 A2 lessons 1–3, out loud, every day.",
+              "5–10 min daily: NOS Jeugdjournaal (short, clear Dutch news for kids — great A2 listening).",
+              "In this app: go through 'Daily routine' and drill the separable verbs (opstaan, aankomen, uitgaan).",
+              "Describe your actual day out loud in Dutch for 5 minutes."
+            ]
+          },
+          {
+            title: "The perfect past",
+            focus: "Grammar + speaking",
+            summary: "The perfect tense (hebben/zijn + voltooid deelwoord) unlocks talking about anything that already happened.",
+            details: [
+              "DutchPod101 A2 lessons 4–6.",
+              "Drill 'Past tense (perfect)' phrase category until the hebben/zijn choice feels automatic.",
+              "Retell what you did yesterday out loud, using at least 5 perfect-tense sentences.",
+              "Do the Fill in the Blank exercises daily, focused on hebben/zijn/participles."
+            ]
+          },
+          {
+            title: "Shopping & errands",
+            focus: "Speaking",
+            summary: "Handle real transactions — trying things on, asking prices, paying, returning.",
+            details: [
+              "DutchPod101 A2 lessons 7–9.",
+              "Drill the 'Shopping' phrase category, audio-first.",
+              "Try Tandem/HelloTalk with a real shopping-themed roleplay.",
+              "Multiple Choice exercises daily, 5–10 min."
+            ]
+          },
+          {
+            title: "Finding your way",
+            focus: "Listening + speaking",
+            summary: "Directions and transport come up constantly once you're navigating daily life.",
+            details: [
+              "DutchPod101 A2 lessons 10–12.",
+              "Drill 'Directions' category, then describe your own commute out loud.",
+              "Listening: an NOS Jeugdjournaal episode twice, no subtitles the second time.",
+              "Sentence Builder exercises, focused on direction/transport chunks."
+            ]
+          },
+          {
+            title: "Midpoint review",
+            focus: "Consolidation",
+            summary: "No new material — fill the gaps and check what's actually sticking.",
+            details: [
+              "Re-listen to Lessons 1–9 without looking anything up.",
+              "Go through every phrase category and re-test with Listening Dictation.",
+              "Light reading: Oefenen.nl A2 texts, 10 min if curious.",
+              "One longer (10–15 min) voice chat on Tandem/HelloTalk, past tense included."
+            ]
+          },
+          {
+            title: "Making plans, staying flexible",
+            focus: "Speaking",
+            summary: "Real plans get changed, moved, and negotiated — practice that flexibility.",
+            details: [
+              "DutchPod101 A2 lessons 13–15.",
+              "Drill 'Making plans' category, then negotiate a real plan change with a language partner.",
+              "Watch a short Dutch YouTube clip with Dutch subtitles on.",
+              "Translate exercises daily, EN→NL."
+            ]
+          },
+          {
+            title: "Health & everyday problems",
+            focus: "Speaking + listening",
+            summary: "Describing how you feel and small problems is a big chunk of daily conversation.",
+            details: [
+              "DutchPod101 A2 lessons 16–18.",
+              "Drill 'Health & body' and 'Opinions & comparisons' categories.",
+              "Listening: a full NOS Jeugdjournaal episode with zero subtitles.",
+              "Conversation goal: describe a real minor problem (a cold, a late train) unscripted."
+            ]
+          },
+          {
+            title: "Put it together",
+            focus: "Free conversation",
+            summary: "Less new input, more producing language freely — mixing past, present, and opinions.",
+            details: [
+              "Free-talk for at least 20 min total across 2+ Tandem/HelloTalk sessions, no script.",
+              "Replay every phrase category once, aiming for instant recall.",
+              "Retake Listening Dictation and Sentence Builder, compare to week 1.",
+              "Decide your next step: start B1 material, a structured NT2 course, or a conversation-focused tutor on iTalki."
+            ]
+          }
+        ],
+        PHRASE_CATS: ["Daily routine","Past tense (perfect)","Shopping","Directions","Making plans","Health & body","Opinions & comparisons"],
+        phrases: {
+          "Daily routine": [
+            ["Ik sta meestal om zeven uur op.","I usually get up at seven."],
+            ["Ik douche voor het ontbijt.","I shower before breakfast."],
+            ["Ik ga met de fiets naar mijn werk.","I go to work by bike."],
+            ["Ik werk van negen tot vijf.","I work from nine to five."],
+            ["Na het werk ga ik sporten.","After work I go exercise."],
+            ["In het weekend slaap ik uit.","On the weekend I sleep in."],
+            ["Ik kook meestal zelf.","I usually cook for myself."],
+            ["Ik ga rond elf uur naar bed.","I go to bed around eleven."],
+            ["Elke ochtend drink ik koffie.","Every morning I drink coffee."],
+            ["Ik heb een druk schema deze week.","I have a busy schedule this week."]
+          ],
+          "Past tense (perfect)": [
+            ["Ik heb gisteren gewerkt.","I worked yesterday."],
+            ["Heb je al gegeten?","Have you eaten yet?"],
+            ["We zijn naar het strand geweest.","We went to the beach."],
+            ["Ik heb die film al gezien.","I've already seen that movie."],
+            ["Ze is te laat aangekomen.","She arrived late."],
+            ["Ik heb het niet begrepen.","I didn't understand it."],
+            ["Hij heeft zijn sleutels vergeten.","He forgot his keys."],
+            ["We hebben lang gewacht.","We waited a long time."],
+            ["Ik ben vroeg opgestaan.","I got up early."],
+            ["Heb je het boek uitgelezen?","Did you finish reading the book?"]
+          ],
+          "Shopping": [
+            ["Waar kan ik dit passen?","Where can I try this on?"],
+            ["Heeft u dit in een andere maat?","Do you have this in another size?"],
+            ["Ik zoek een cadeau voor mijn vriend.","I'm looking for a gift for my friend."],
+            ["Is dit in de aanbieding?","Is this on sale?"],
+            ["Kan ik met kaart betalen?","Can I pay by card?"],
+            ["Mag ik een tasje?","Can I have a bag?"],
+            ["Dit is te duur voor mij.","This is too expensive for me."],
+            ["Waar is de kassa?","Where is the checkout?"],
+            ["Kan ik dit ruilen?","Can I exchange this?"],
+            ["Ik neem deze, dank u.","I'll take this one, thank you."]
+          ],
+          "Directions": [
+            ["Hoe kom ik bij het station?","How do I get to the station?"],
+            ["Ga rechtdoor en sla linksaf.","Go straight and turn left."],
+            ["Het is om de hoek.","It's around the corner."],
+            ["Is het te lopen vanaf hier?","Is it walkable from here?"],
+            ["Neem de tweede straat rechts.","Take the second street on the right."],
+            ["Ik ben de weg kwijt.","I'm lost."],
+            ["Hoe ver is het naar het centrum?","How far is it to the city center?"],
+            ["Kunt u het op de kaart laten zien?","Can you show me on the map?"],
+            ["Welke bus gaat naar het centrum?","Which bus goes downtown?"],
+            ["Moet ik overstappen?","Do I need to transfer?"]
+          ],
+          "Making plans": [
+            ["Zullen we dit weekend afspreken?","Shall we meet up this weekend?"],
+            ["Heb je al plannen voor vanavond?","Do you already have plans for tonight?"],
+            ["Laten we samen koken.","Let's cook together."],
+            ["Ik moet mijn agenda checken.","I need to check my schedule."],
+            ["Kunnen we het verzetten naar volgende week?","Can we move it to next week?"],
+            ["Ik stel voor om bij het park af te spreken.","I suggest meeting at the park."],
+            ["Zin om samen te gaan hardlopen?","Feel like going running together?"],
+            ["Laten we het kort houden vandaag.","Let's keep it short today."],
+            ["Wat werkt het beste voor jou?","What works best for you?"],
+            ["Ik hou je op de hoogte.","I'll keep you posted."]
+          ],
+          "Health & body": [
+            ["Ik voel me niet zo lekker.","I don't feel very well."],
+            ["Ik heb hoofdpijn.","I have a headache."],
+            ["Ik moet naar de dokter.","I need to go to the doctor."],
+            ["Ik ben verkouden.","I have a cold."],
+            ["Heb je iets tegen de pijn?","Do you have something for the pain?"],
+            ["Ik moet wat rusten.","I need to rest a bit."],
+            ["Mijn rug doet pijn.","My back hurts."],
+            ["Ik ben allergisch voor noten.","I'm allergic to nuts."],
+            ["Het gaat al beter met mij.","I'm already feeling better."],
+            ["Ik heb een afspraak bij de tandarts.","I have a dentist appointment."]
+          ],
+          "Opinions & comparisons": [
+            ["Ik vind dit beter dan dat.","I think this is better than that."],
+            ["Dit is net zo goed als het andere.","This is just as good as the other one."],
+            ["Ik ben het niet helemaal eens met jou.","I don't completely agree with you."],
+            ["Volgens mij is dat niet waar.","I don't think that's true."],
+            ["Dat is de moeite waard.","That's worth it."],
+            ["Ik heb liever thee dan koffie.","I prefer tea over coffee."],
+            ["Het is minder erg dan ik dacht.","It's less bad than I thought."],
+            ["Wat is jouw favoriete seizoen?","What's your favorite season?"],
+            ["Ik twijfel nog een beetje.","I'm still a bit unsure."],
+            ["Naar mijn mening is dit de beste optie.","In my opinion, this is the best option."]
+          ]
+        },
+        RES_TYPES: ["All","Podcast","App","Website","Tutor"],
+        resources: [
+          ["DutchPod101 (A2 lessons)","https://www.dutchpod101.com/","Structured audio lessons that build on beginner basics.","Podcast","Core course"],
+          ["NOS Jeugdjournaal","https://jeugdjournaal.nl/","Real Dutch news, spoken slowly and clearly for kids — excellent A2 listening practice.","Podcast","Listening"],
+          ["NT2Taalmenu","https://www.nt2taalmenu.nl/","Free grammar explanations and exercises for learners of Dutch as a second language.","Website","Grammar"],
+          ["Oefenen.nl","https://www.oefenen.nl/","Free graded reading and simple exercises.","Website","Reading (optional)"],
+          ["Tandem","https://www.tandem.net/","Free language exchange app — text or voice with native Dutch speakers.","App","Speaking"],
+          ["HelloTalk","https://www.hellotalk.com/","Alternative free language exchange app, similar to Tandem.","App","Speaking"],
+          ["Duolingo Dutch","https://www.duolingo.com/course/nl/en/Learn-Dutch","Use only as a vocab top-up, not your main method.","App","Vocab supplement"],
+          ["iTalki","https://www.italki.com/","Paid (cheap) conversation tutors if you want structured speaking practice.","Tutor","Speaking, paid"],
+          ["Van Dale","https://www.vandale.nl/","Free online dictionary — look up words and their forms as needed.","Website","Reference"]
+        ],
+        mcq: [
+          {fr:"Ik sta meestal om zeven uur op.", choices:["I go to bed at seven.","I usually get up at seven.","I work until seven."], answer:1},
+          {fr:"Heb je al gegeten?", choices:["Have you eaten yet?","Are you hungry?","What did you eat?"], answer:0},
+          {fr:"Waar kan ik dit passen?", choices:["Where can I pay?","Where can I try this on?","Where is the exit?"], answer:1},
+          {fr:"Hoe kom ik bij het station?", choices:["Where is the station?","How do I get to the station?","When does the train leave?"], answer:1},
+          {fr:"Zullen we dit weekend afspreken?", choices:["Shall we meet up this weekend?","Are you busy this weekend?","Did we meet last weekend?"], answer:0},
+          {fr:"Ik voel me niet zo lekker.", choices:["I feel great.","I don't feel very well.","I'm very hungry."], answer:1},
+          {fr:"Ik vind dit beter dan dat.", choices:["I think this is worse.","I think this is better than that.","I think they're the same."], answer:1},
+          {fr:"We zijn naar het strand geweest.", choices:["We are going to the beach.","We went to the beach.","We live near the beach."], answer:1},
+          {fr:"Is dit in de aanbieding?", choices:["Is this on sale?","Is this expensive?","Is this available?"], answer:0},
+          {fr:"Ga rechtdoor en sla linksaf.", choices:["Turn right here.","Go straight and turn left.","Stop at the corner."], answer:1},
+          {fr:"Ik moet mijn agenda checken.", choices:["I need to check my schedule.","I don't have a schedule.","My schedule is empty."], answer:0},
+          {fr:"Ik heb hoofdpijn.", choices:["I have a headache.","I have a stomachache.","I feel great."], answer:0},
+          {fr:"Ik ben het niet helemaal eens met jou.", choices:["I completely agree with you.","I don't completely agree with you.","I don't understand you."], answer:1},
+          {fr:"Ik heb gisteren gewerkt.", choices:["I will work tomorrow.","I work every day.","I worked yesterday."], answer:2},
+          {fr:"Kan ik met kaart betalen?", choices:["Can I pay by card?","Where is the card?","Is it free?"], answer:0},
+          {fr:"Het is om de hoek.", choices:["It's far away.","It's around the corner.","It's closed."], answer:1},
+          {fr:"Laten we samen koken.", choices:["Let's eat out.","Let's cook together.","Let's order food."], answer:1},
+          {fr:"Ik ben verkouden.", choices:["I have a cold.","I'm tired.","I'm hungry."], answer:0},
+          {fr:"Dat is de moeite waard.", choices:["That's not worth it.","That's worth it.","That's too expensive."], answer:1},
+          {fr:"Ze is te laat aangekomen.", choices:["She arrived early.","She arrived on time.","She arrived late."], answer:2},
+          {fr:"Ik zoek een cadeau voor mijn vriend.", choices:["I'm returning a gift.","I'm looking for a gift for my friend.","I already bought a gift."], answer:1},
+          {fr:"Moet ik overstappen?", choices:["Do I need to transfer?","Where do I get off?","Is this the right train?"], answer:0},
+          {fr:"Ik heb een druk schema deze week.", choices:["I have a free week.","I have a busy schedule this week.","I'm on holiday this week."], answer:1},
+          {fr:"Naar mijn mening is dit de beste optie.", choices:["This is the cheapest option.","In my opinion, this is the best option.","This is not an option."], answer:1}
+        ],
+        fillBlank: [
+          {prompt:"Ik ___ meestal om zeven uur op.", answer:"sta", hint:"I usually get up at seven (opstaan)."},
+          {prompt:"Ik heb gisteren ___.", answer:"gewerkt", hint:"I worked yesterday (perfect tense of werken)."},
+          {prompt:"___ je al gegeten?", answer:"heb", hint:"Have you eaten yet? (hebben + participle)"},
+          {prompt:"We ___ naar het strand geweest.", answer:"zijn", hint:"We went to the beach (zijn + geweest)."},
+          {prompt:"Waar kan ik dit ___?", answer:"passen", hint:"Where can I try this on?"},
+          {prompt:"Ga rechtdoor en sla ___ af.", answer:"links", hint:"Go straight and turn left."},
+          {prompt:"Ik ___ mijn agenda checken.", answer:"moet", hint:"I need to check my schedule (moeten)."},
+          {prompt:"Ik heb ___.", answer:"hoofdpijn", hint:"I have a headache."},
+          {prompt:"Ik ben het niet helemaal ___ met jou.", answer:"eens", hint:"I don't completely agree with you."},
+          {prompt:"Ik vind dit ___ dan dat.", answer:"beter", hint:"I think this is better than that (comparative)."},
+          {prompt:"Kan ik met ___ betalen?", answer:"kaart", hint:"Can I pay by card?"},
+          {prompt:"Ik ben ___.", answer:"verkouden", hint:"I have a cold."},
+          {prompt:"Ik ___ een cadeau voor mijn vriend.", answer:"zoek", hint:"I'm looking for a gift (zoeken)."},
+          {prompt:"___ ik overstappen?", answer:"moet", hint:"Do I need to transfer?"},
+          {prompt:"Ze is te laat ___.", answer:"aangekomen", hint:"She arrived late (perfect tense of aankomen)."},
+          {prompt:"Dat is de moeite ___.", answer:"waard", hint:"That's worth it."}
+        ],
+        builderSentences: [
+          {parts:["Ik","sta","meestal","om zeven uur","op"], answer:"Ik sta meestal om zeven uur op", en:"I usually get up at seven."},
+          {parts:["Heb","je","al","gegeten","?"], answer:"Heb je al gegeten?", en:"Have you eaten yet?"},
+          {parts:["We","zijn","naar het strand","geweest"], answer:"We zijn naar het strand geweest", en:"We went to the beach."},
+          {parts:["Waar","kan","ik","dit","passen","?"], answer:"Waar kan ik dit passen?", en:"Where can I try this on?"},
+          {parts:["Hoe","kom","ik","bij het station","?"], answer:"Hoe kom ik bij het station?", en:"How do I get to the station?"},
+          {parts:["Zullen","we","dit weekend","afspreken","?"], answer:"Zullen we dit weekend afspreken?", en:"Shall we meet up this weekend?"},
+          {parts:["Ik","voel","me","niet zo lekker"], answer:"Ik voel me niet zo lekker", en:"I don't feel very well."},
+          {parts:["Ik","vind","dit","beter","dan dat"], answer:"Ik vind dit beter dan dat", en:"I think this is better than that."},
+          {parts:["Kan","ik","met kaart","betalen","?"], answer:"Kan ik met kaart betalen?", en:"Can I pay by card?"},
+          {parts:["Ik","heb","een druk","schema","deze week"], answer:"Ik heb een druk schema deze week", en:"I have a busy schedule this week."}
+        ],
+        translateItems: [
+          {en:"I usually get up at seven.", fr:"Ik sta meestal om zeven uur op."},
+          {en:"Have you eaten yet?", fr:"Heb je al gegeten?"},
+          {en:"We went to the beach.", fr:"We zijn naar het strand geweest."},
+          {en:"Where can I try this on?", fr:"Waar kan ik dit passen?"},
+          {en:"How do I get to the station?", fr:"Hoe kom ik bij het station?"},
+          {en:"Shall we meet up this weekend?", fr:"Zullen we dit weekend afspreken?"},
+          {en:"I don't feel very well.", fr:"Ik voel me niet zo lekker."},
+          {en:"I think this is better than that.", fr:"Ik vind dit beter dan dat."},
+          {en:"Can I pay by card?", fr:"Kan ik met kaart betalen?"},
+          {en:"I have a busy schedule this week.", fr:"Ik heb een druk schema deze week."},
+          {en:"I have a headache.", fr:"Ik heb hoofdpijn."},
+          {en:"Is this on sale?", fr:"Is dit in de aanbieding?"},
+          {en:"I need to check my schedule.", fr:"Ik moet mijn agenda checken."},
+          {en:"Go straight and turn left.", fr:"Ga rechtdoor en sla linksaf."},
+          {en:"That's worth it.", fr:"Dat is de moeite waard."},
+          {en:"I'm looking for a gift for my friend.", fr:"Ik zoek een cadeau voor mijn vriend."}
+        ],
+        quizWeeks: [
+          [
+            {fr:"Ik sta meestal om zeven uur op.", choices:["I go to bed at seven.","I usually get up at seven.","I work until seven."], answer:1},
+            {fr:"Ik douche voor het ontbijt.", choices:["I shower before breakfast.","I eat before showering.","I shower after dinner."], answer:0},
+            {fr:"Ik ga met de fiets naar mijn werk.", choices:["I walk to work.","I go to work by bike.","I drive to work."], answer:1},
+            {fr:"Na het werk ga ik sporten.", choices:["After work I go exercise.","Before work I exercise.","I never exercise."], answer:0},
+            {fr:"In het weekend slaap ik uit.", choices:["I work on weekends.","On the weekend I sleep in.","I never sleep on weekends."], answer:1},
+            {fr:"Ik kook meestal zelf.", choices:["I usually order food.","I usually cook for myself.","I never cook."], answer:1},
+            {fr:"Elke ochtend drink ik koffie.", choices:["I never drink coffee.","Every morning I drink coffee.","I drink coffee at night."], answer:1},
+            {fr:"Ik heb een druk schema deze week.", choices:["I have a free week.","I have a busy schedule this week.","I'm on holiday."], answer:1}
+          ],
+          [
+            {fr:"Ik heb gisteren gewerkt.", choices:["I will work tomorrow.","I work every day.","I worked yesterday."], answer:2},
+            {fr:"Heb je al gegeten?", choices:["Have you eaten yet?","Are you hungry?","What did you eat?"], answer:0},
+            {fr:"We zijn naar het strand geweest.", choices:["We are going to the beach.","We went to the beach.","We live near the beach."], answer:1},
+            {fr:"Ik heb die film al gezien.", choices:["I want to see that film.","I've already seen that film.","I never saw that film."], answer:1},
+            {fr:"Ze is te laat aangekomen.", choices:["She arrived early.","She arrived on time.","She arrived late."], answer:2},
+            {fr:"Hij heeft zijn sleutels vergeten.", choices:["He forgot his keys.","He found his keys.","He lost his wallet."], answer:0},
+            {fr:"Ik ben vroeg opgestaan.", choices:["I got up early.","I got up late.","I stayed in bed."], answer:0},
+            {fr:"Heb je het boek uitgelezen?", choices:["Did you buy the book?","Did you finish reading the book?","Did you start the book?"], answer:1}
+          ],
+          [
+            {fr:"Waar kan ik dit passen?", choices:["Where can I pay?","Where can I try this on?","Where is the exit?"], answer:1},
+            {fr:"Heeft u dit in een andere maat?", choices:["Do you have this in another color?","Do you have this in another size?","Is this the only one?"], answer:1},
+            {fr:"Is dit in de aanbieding?", choices:["Is this on sale?","Is this expensive?","Is this available?"], answer:0},
+            {fr:"Kan ik met kaart betalen?", choices:["Can I pay by card?","Where is the card?","Is it free?"], answer:0},
+            {fr:"Mag ik een tasje?", choices:["Can I have a bag?","Can I return this?","Can I try this?"], answer:0},
+            {fr:"Dit is te duur voor mij.", choices:["This is cheap.","This is too expensive for me.","This is on sale."], answer:1},
+            {fr:"Kan ik dit ruilen?", choices:["Can I exchange this?","Can I buy this?","Can I see this?"], answer:0},
+            {fr:"Ik zoek een cadeau voor mijn vriend.", choices:["I'm returning a gift.","I'm looking for a gift for my friend.","I already bought a gift."], answer:1}
+          ],
+          [
+            {fr:"Hoe kom ik bij het station?", choices:["Where is the station?","How do I get to the station?","When does the train leave?"], answer:1},
+            {fr:"Ga rechtdoor en sla linksaf.", choices:["Turn right here.","Go straight and turn left.","Stop at the corner."], answer:1},
+            {fr:"Het is om de hoek.", choices:["It's far away.","It's around the corner.","It's closed."], answer:1},
+            {fr:"Ik ben de weg kwijt.", choices:["I know the way.","I'm lost.","I'm almost there."], answer:1},
+            {fr:"Hoe ver is het naar het centrum?", choices:["How far is it to the city center?","Where is the city center?","Is the center open?"], answer:0},
+            {fr:"Welke bus gaat naar het centrum?", choices:["Which bus goes downtown?","Where is the bus stop?","When does the bus leave?"], answer:0},
+            {fr:"Moet ik overstappen?", choices:["Do I need to transfer?","Where do I get off?","Is this the right train?"], answer:0},
+            {fr:"Kunt u het op de kaart laten zien?", choices:["Can you show me on the map?","Do you have a map?","Is there a map here?"], answer:0}
+          ],
+          [
+            {fr:"Ik voel me niet zo lekker.", choices:["I feel great.","I don't feel very well.","I'm very hungry."], answer:1},
+            {fr:"Zullen we dit weekend afspreken?", choices:["Shall we meet up this weekend?","Are you busy this weekend?","Did we meet last weekend?"], answer:0},
+            {fr:"Ik vind dit beter dan dat.", choices:["I think this is worse.","I think this is better than that.","I think they're the same."], answer:1},
+            {fr:"Ik heb hoofdpijn.", choices:["I have a headache.","I have a stomachache.","I feel great."], answer:0},
+            {fr:"Laten we samen koken.", choices:["Let's eat out.","Let's cook together.","Let's order food."], answer:1},
+            {fr:"Ik moet mijn agenda checken.", choices:["I need to check my schedule.","I don't have a schedule.","My schedule is empty."], answer:0},
+            {fr:"Is dit in de aanbieding?", choices:["Is this on sale?","Is this expensive?","Is this available?"], answer:0},
+            {fr:"Hoe kom ik bij het station?", choices:["Where is the station?","How do I get to the station?","When does the train leave?"], answer:1}
+          ],
+          [
+            {fr:"Zullen we dit weekend afspreken?", choices:["Shall we meet up this weekend?","Are you busy this weekend?","Did we meet last weekend?"], answer:0},
+            {fr:"Heb je al plannen voor vanavond?", choices:["Do you have plans for tonight?","Did you have plans yesterday?","Are you free right now?"], answer:0},
+            {fr:"Kunnen we het verzetten naar volgende week?", choices:["Can we cancel it?","Can we move it to next week?","Can we do it today?"], answer:1},
+            {fr:"Ik stel voor om bij het park af te spreken.", choices:["I suggest meeting at the park.","I don't want to meet at the park.","The park is closed."], answer:0},
+            {fr:"Zin om samen te gaan hardlopen?", choices:["Feel like going running together?","Are you tired from running?","Did you run today?"], answer:0},
+            {fr:"Laten we het kort houden vandaag.", choices:["Let's take our time today.","Let's keep it short today.","Let's cancel today."], answer:1},
+            {fr:"Wat werkt het beste voor jou?", choices:["What works best for you?","What do you want to eat?","Where do you live?"], answer:0},
+            {fr:"Ik hou je op de hoogte.", choices:["I'll keep you posted.","I forgot about you.","I'll call you now."], answer:0}
+          ],
+          [
+            {fr:"Ik ben verkouden.", choices:["I have a cold.","I'm tired.","I'm hungry."], answer:0},
+            {fr:"Ik moet naar de dokter.", choices:["I need to go to the doctor.","I am a doctor.","I feel great."], answer:0},
+            {fr:"Mijn rug doet pijn.", choices:["My back hurts.","My head hurts.","My leg is fine."], answer:0},
+            {fr:"Het gaat al beter met mij.", choices:["I'm getting worse.","I'm already feeling better.","I feel the same."], answer:1},
+            {fr:"Ik ben het niet helemaal eens met jou.", choices:["I completely agree with you.","I don't completely agree with you.","I don't understand you."], answer:1},
+            {fr:"Dat is de moeite waard.", choices:["That's not worth it.","That's worth it.","That's too expensive."], answer:1},
+            {fr:"Ik heb liever thee dan koffie.", choices:["I prefer tea over coffee.","I never drink tea.","I only drink coffee."], answer:0},
+            {fr:"Naar mijn mening is dit de beste optie.", choices:["This is the cheapest option.","In my opinion, this is the best option.","This is not an option."], answer:1}
+          ],
+          [
+            {fr:"Ik heb gisteren gewerkt.", choices:["I will work tomorrow.","I worked yesterday.","I work every day."], answer:1},
+            {fr:"Waar kan ik dit passen?", choices:["Where can I try this on?","Where can I pay?","Where is the exit?"], answer:0},
+            {fr:"Hoe kom ik bij het station?", choices:["How do I get to the station?","Where is the station?","When does the train leave?"], answer:0},
+            {fr:"Zullen we dit weekend afspreken?", choices:["Shall we meet up this weekend?","Are you busy this weekend?","Did we meet last weekend?"], answer:0},
+            {fr:"Ik voel me niet zo lekker.", choices:["I feel great.","I don't feel very well.","I'm very hungry."], answer:1},
+            {fr:"Ik vind dit beter dan dat.", choices:["I think this is worse.","I think this is better than that.","I think they're the same."], answer:1},
+            {fr:"Kan ik met kaart betalen?", choices:["Can I pay by card?","Where is the card?","Is it free?"], answer:0},
+            {fr:"Ik heb een druk schema deze week.", choices:["I have a free week.","I have a busy schedule this week.","I'm on holiday."], answer:1}
+          ]
+        ]
+      }, // end a2
+
+      b1: {
+        id: "b1",
+        label: "B1 · Intermediate",
+        desc: "Discuss opinions, plans, and past experiences with more independence.",
+        pageTitle: "Praat — 2-Month Dutch B1 Plan",
+        eyebrow: "Two-month plan · B1",
+        weeks: [
+          {
+            title: "Talking about your life and work",
+            focus: "Speaking + vocabulary",
+            summary: "Move into fuller, more independent conversation about your work and daily reality.",
+            details: [
+              "DutchPod101 B1 lessons 1–3, out loud, every day.",
+              "5–10 min daily listening: a slower NOS op 3 segment or podcast for learners.",
+              "In this app: drill 'Talking about work' — describe your own job or studies unscripted.",
+              "Do the Multiple Choice exercises daily, 5–10 min."
+            ]
+          },
+          {
+            title: "Narrating past and future",
+            focus: "Grammar + speaking",
+            summary: "Combine imperfect, perfect, and future forms to tell a real, connected story.",
+            details: [
+              "DutchPod101 B1 lessons 4–6.",
+              "Drill 'Past & future' phrase category until the tense choices feel automatic.",
+              "Tell a 1-minute story about something that happened to you, out loud.",
+              "Fill in the Blank exercises daily, focused on tense endings."
+            ]
+          },
+          {
+            title: "Giving your opinion, properly",
+            focus: "Speaking",
+            summary: "Move beyond 'ik vind' — learn to frame, soften, and defend an opinion.",
+            details: [
+              "DutchPod101 B1 lessons 7–9.",
+              "Drill 'Opinions & arguing your point', then debate a light topic with a partner.",
+              "Try Tandem/HelloTalk: give your opinion on something and ask for theirs.",
+              "Translate exercises daily, EN→NL."
+            ]
+          },
+          {
+            title: "If, would, could",
+            focus: "Grammar + speaking",
+            summary: "Hypotheticals (als... zou...) open up a much more flexible, adult register.",
+            details: [
+              "DutchPod101 B1 lessons 10–12.",
+              "Drill 'Hypotheticals' category, then build 3 of your own 'als ik... zou ik...' sentences.",
+              "Listening: an episode twice, no subtitles the second time.",
+              "Sentence Builder exercises, focused on conditional chunks."
+            ]
+          },
+          {
+            title: "Midpoint review",
+            focus: "Consolidation",
+            summary: "No new material — fill the gaps and check what's actually sticking.",
+            details: [
+              "Re-listen to Lessons 1–9 without looking anything up.",
+              "Go through every phrase category and re-test with Listening Dictation.",
+              "Light reading: a short Dutch news article or blog post, 10–15 min.",
+              "One longer (15–20 min) voice chat on Tandem/HelloTalk, mixing tenses and opinions."
+            ]
+          },
+          {
+            title: "Social life, properly planned",
+            focus: "Speaking",
+            summary: "Plans get more layered at this level — invitations, group logistics, catching up.",
+            details: [
+              "DutchPod101 B1 lessons 13–15.",
+              "Drill 'Social plans' category, then plan a real (or imagined) weekend with a partner.",
+              "Watch a Dutch YouTube video or short vlog with Dutch subtitles on.",
+              "Multiple Choice and Translate exercises, mixed practice."
+            ]
+          },
+          {
+            title: "When things go wrong",
+            focus: "Speaking + listening",
+            summary: "Travel problems and small emergencies are a great test of real fluency.",
+            details: [
+              "DutchPod101 B1 lessons 16–18.",
+              "Drill 'Travel & problems' and 'Feelings & nuance' categories.",
+              "Listening: a full episode with zero subtitles.",
+              "Conversation goal: describe a real (or imagined) travel mishap unscripted."
+            ]
+          },
+          {
+            title: "Put it together",
+            focus: "Free conversation",
+            summary: "Less new input, more producing language freely — narrative, opinion, and nuance together.",
+            details: [
+              "Free-talk for at least 20–30 min total across 2+ Tandem/HelloTalk sessions, no script.",
+              "Replay every phrase category once, aiming for instant, natural recall.",
+              "Retake Listening Dictation and Sentence Builder, compare to week 1.",
+              "Decide your next step: B2 material, a structured NT2 course, or regular sessions with an iTalki tutor."
+            ]
+          }
+        ],
+        PHRASE_CATS: ["Talking about work","Past & future","Opinions & arguing your point","Hypotheticals","Social plans","Travel & problems","Feelings & nuance"],
+        phrases: {
+          "Talking about work": [
+            ["Wat voor werk doe je?","What kind of work do you do?"],
+            ["Ik werk als [beroep].","I work as a [profession]."],
+            ["Ik heb veel deadlines deze maand.","I have a lot of deadlines this month."],
+            ["Mijn collega's zijn erg aardig.","My colleagues are very nice."],
+            ["Ik overweeg van baan te veranderen.","I'm considering changing jobs."],
+            ["Ik werk het liefst vanuit huis.","I prefer working from home."],
+            ["We hebben morgen een vergadering.","We have a meeting tomorrow."],
+            ["Ik ben net begonnen met een nieuwe baan.","I just started a new job."],
+            ["Het werk kan best stressvol zijn.","The work can be quite stressful."],
+            ["Ik neem volgende week vrij.","I'm taking time off next week."]
+          ],
+          "Past & future": [
+            ["Vroeger woonde ik in een andere stad.","I used to live in a different city."],
+            ["Toen ik jonger was, sportte ik veel.","When I was younger, I exercised a lot."],
+            ["Over vijf jaar hoop ik te verhuizen.","In five years I hope to move."],
+            ["Ik was net op tijd toen het begon te regenen.","I was just in time when it started to rain."],
+            ["Ik zal je morgen bellen.","I'll call you tomorrow."],
+            ["Ik was aan het koken toen je belde.","I was cooking when you called."],
+            ["Volgend jaar ga ik waarschijnlijk reizen.","Next year I'll probably travel."],
+            ["Ik had het al gedaan voordat je het vroeg.","I had already done it before you asked."],
+            ["We zullen zien wat er gebeurt.","We'll see what happens."],
+            ["Ik dacht dat je later zou komen.","I thought you'd come later."]
+          ],
+          "Opinions & arguing your point": [
+            ["Ik ben het daar niet mee eens, want...","I disagree with that, because..."],
+            ["Aan de ene kant... aan de andere kant...","On one hand... on the other hand..."],
+            ["Volgens mij ligt het genuanceerder.","I think it's more nuanced than that."],
+            ["Dat is een goed punt, maar...","That's a good point, but..."],
+            ["Ik zie het anders.","I see it differently."],
+            ["Uiteindelijk maakt het niet zoveel uit.","In the end it doesn't matter that much."],
+            ["Ik sta daar niet achter.","I don't stand behind that."],
+            ["Het hangt ervan af hoe je het bekijkt.","It depends on how you look at it."],
+            ["Daar heb je gelijk in.","You're right about that."],
+            ["Ik snap je punt, maar ik denk er anders over.","I get your point, but I think differently about it."]
+          ],
+          "Hypotheticals": [
+            ["Als ik meer tijd had, zou ik reizen.","If I had more time, I would travel."],
+            ["Wat zou jij doen in mijn plaats?","What would you do in my place?"],
+            ["Als het niet had geregend, waren we naar buiten gegaan.","If it hadn't rained, we would have gone outside."],
+            ["Ik zou het anders aanpakken.","I would approach it differently."],
+            ["Stel dat je kon kiezen, wat zou je doen?","Suppose you could choose, what would you do?"],
+            ["Het zou fijn zijn als je kon komen.","It would be nice if you could come."],
+            ["Als ik jou was, zou ik het proberen.","If I were you, I would try it."],
+            ["Zonder jouw hulp was het niet gelukt.","Without your help it wouldn't have worked."],
+            ["Wat als we het gewoon proberen?","What if we just try it?"],
+            ["Ik zou het niet erg vinden.","I wouldn't mind."]
+          ],
+          "Social plans": [
+            ["Zullen we een keer afspreken om bij te praten?","Shall we meet up sometime to catch up?"],
+            ["Ik heb je gemist!","I've missed you!"],
+            ["Laten we een weekendje weg plannen.","Let's plan a weekend getaway."],
+            ["Wie nodig je nog meer uit?","Who else are you inviting?"],
+            ["Ik kan helaas niet, ik heb al iets anders.","Unfortunately I can't, I already have something else."],
+            ["Zullen we het bij mij houden?","Shall we keep it at my place?"],
+            ["Breng gerust iemand mee.","Feel free to bring someone."],
+            ["We zien elkaar al een tijdje niet meer.","We haven't seen each other in a while."],
+            ["Laten we er een gezellige avond van maken.","Let's make it a fun evening."],
+            ["Ik verheug me erop.","I'm looking forward to it."]
+          ],
+          "Travel & problems": [
+            ["Mijn trein heeft vertraging.","My train is delayed."],
+            ["Ik ben mijn paspoort kwijt.","I've lost my passport."],
+            ["Kunt u me helpen met omboeken?","Can you help me rebook?"],
+            ["De vlucht is geannuleerd.","The flight has been cancelled."],
+            ["Ik heb mijn koffer niet gekregen.","I didn't get my suitcase."],
+            ["Is er een andere route mogelijk?","Is there another route possible?"],
+            ["Ik moet mijn verzekering bellen.","I need to call my insurance."],
+            ["Het apparaat doet het niet meer.","The device isn't working anymore."],
+            ["Ik ben iets kwijtgeraakt in het hotel.","I lost something at the hotel."],
+            ["Gelukkig is alles goed gekomen.","Luckily everything worked out."]
+          ],
+          "Feelings & nuance": [
+            ["Ik voel me een beetje overweldigd.","I feel a bit overwhelmed."],
+            ["Het valt me best zwaar.","I'm finding it quite tough."],
+            ["Ik ben opgelucht dat het achter de rug is.","I'm relieved it's over."],
+            ["Het raakte me meer dan ik verwachtte.","It affected me more than I expected."],
+            ["Ik voel me hier helemaal thuis.","I feel completely at home here."],
+            ["Het went wel, denk ik.","I think I'll get used to it."],
+            ["Ik twijfel of het de juiste keuze was.","I doubt whether it was the right choice."],
+            ["Het geeft me een goed gevoel.","It gives me a good feeling."],
+            ["Ik ben trots op wat we bereikt hebben.","I'm proud of what we achieved."],
+            ["Het is ingewikkelder dan het lijkt.","It's more complicated than it seems."]
+          ]
+        },
+        RES_TYPES: ["All","Podcast","App","Website","Tutor"],
+        resources: [
+          ["DutchPod101 (B1 lessons)","https://www.dutchpod101.com/","Structured audio lessons aimed at more independent, intermediate conversation.","Podcast","Core course"],
+          ["NOS op 3","https://nos.nl/op3","Dutch news aimed at a younger adult audience — a good bridge to native-speed content.","Podcast","Listening"],
+          ["NT2Taalmenu","https://www.nt2taalmenu.nl/","Free grammar explanations and exercises for learners of Dutch as a second language.","Website","Grammar"],
+          ["Oefenen.nl","https://www.oefenen.nl/","Free graded reading and exercises.","Website","Reading (optional)"],
+          ["Tandem","https://www.tandem.net/","Free language exchange app — text or voice with native Dutch speakers.","App","Speaking"],
+          ["HelloTalk","https://www.hellotalk.com/","Alternative free language exchange app, similar to Tandem.","App","Speaking"],
+          ["iTalki","https://www.italki.com/","Paid (cheap) conversation tutors — very useful for practicing opinions and debate at this level.","Tutor","Speaking, paid"],
+          ["Van Dale","https://www.vandale.nl/","Free online dictionary — look up words and their forms as needed.","Website","Reference"]
+        ],
+        mcq: [
+          {fr:"Wat voor werk doe je?", choices:["What kind of work do you do?","Where do you work?","How much do you earn?"], answer:0},
+          {fr:"Vroeger woonde ik in een andere stad.", choices:["I will live in another city.","I used to live in a different city.","I live in another city now."], answer:1},
+          {fr:"Ik ben het daar niet mee eens, want...", choices:["I agree with that, because...","I disagree with that, because...","I don't know about that."], answer:1},
+          {fr:"Als ik meer tijd had, zou ik reizen.", choices:["I don't have time to travel.","If I had more time, I would travel.","I traveled a lot last year."], answer:1},
+          {fr:"Zullen we een keer afspreken om bij te praten?", choices:["Can we cancel our plans?","Shall we meet up sometime to catch up?","We should stop talking."], answer:1},
+          {fr:"Mijn trein heeft vertraging.", choices:["My train is on time.","My train is delayed.","I missed my train."], answer:1},
+          {fr:"Ik voel me een beetje overweldigd.", choices:["I feel great.","I feel a bit overwhelmed.","I feel bored."], answer:1},
+          {fr:"Ik overweeg van baan te veranderen.", choices:["I love my current job.","I'm considering changing jobs.","I just got fired."], answer:1},
+          {fr:"Toen ik jonger was, sportte ik veel.", choices:["I exercise a lot now.","When I was younger, I exercised a lot.","I never exercised."], answer:1},
+          {fr:"Aan de ene kant... aan de andere kant...", choices:["On one hand... on the other hand...","First... then...","Never... always..."], answer:0},
+          {fr:"Wat zou jij doen in mijn plaats?", choices:["What did you do yesterday?","What would you do in my place?","Where should I go?"], answer:1},
+          {fr:"Ik heb je gemist!", choices:["I forgot about you!","I've missed you!","I don't know you!"], answer:1},
+          {fr:"Ik ben mijn paspoort kwijt.", choices:["I found my passport.","I've lost my passport.","I renewed my passport."], answer:1},
+          {fr:"Het valt me best zwaar.", choices:["It's easy for me.","I'm finding it quite tough.","I don't care about it."], answer:1},
+          {fr:"Ik werk het liefst vanuit huis.", choices:["I never work from home.","I prefer working from home.","I work at an office."], answer:1},
+          {fr:"Over vijf jaar hoop ik te verhuizen.", choices:["I moved five years ago.","In five years I hope to move.","I will never move."], answer:1},
+          {fr:"Volgens mij ligt het genuanceerder.", choices:["It's very simple.","I think it's more nuanced than that.","I don't have an opinion."], answer:1},
+          {fr:"Als het niet had geregend, waren we naar buiten gegaan.", choices:["It rained, so we stayed home.","If it hadn't rained, we would have gone outside.","We went outside despite the rain."], answer:0},
+          {fr:"Laten we een weekendje weg plannen.", choices:["Let's stay home this weekend.","Let's plan a weekend getaway.","Let's cancel our trip."], answer:1},
+          {fr:"Kunt u me helpen met omboeken?", choices:["Can you help me rebook?","Can you help me pay?","Can you help me find my seat?"], answer:0},
+          {fr:"Ik ben opgelucht dat het achter de rug is.", choices:["I'm worried it's not over.","I'm relieved it's over.","I'm sad it's over."], answer:1},
+          {fr:"Ik neem volgende week vrij.", choices:["I'm working overtime next week.","I'm taking time off next week.","I'm starting a new job next week."], answer:1},
+          {fr:"Ik zou het anders aanpakken.", choices:["I would approach it differently.","I did it the same way.","I refuse to do it."], answer:0},
+          {fr:"Het is ingewikkelder dan het lijkt.", choices:["It's simpler than it looks.","It's more complicated than it seems.","It's exactly as it looks."], answer:1}
+        ],
+        fillBlank: [
+          {prompt:"Wat voor werk ___ je?", answer:"doe", hint:"What kind of work do you do? (doen)"},
+          {prompt:"Vroeger ___ ik in een andere stad.", answer:"woonde", hint:"I used to live in a different city (imperfect of wonen)."},
+          {prompt:"Als ik meer tijd had, ___ ik reizen.", answer:"zou", hint:"If I had more time, I would travel (conditional)."},
+          {prompt:"Ik ben het daar niet mee ___, want...", answer:"eens", hint:"I disagree with that, because..."},
+          {prompt:"Mijn trein heeft ___.", answer:"vertraging", hint:"My train is delayed."},
+          {prompt:"Ik voel me een beetje ___.", answer:"overweldigd", hint:"I feel a bit overwhelmed."},
+          {prompt:"Toen ik jonger was, ___ ik veel.", answer:"sportte", hint:"When I was younger, I exercised a lot (imperfect of sporten)."},
+          {prompt:"Ik overweeg van baan te ___.", answer:"veranderen", hint:"I'm considering changing jobs."},
+          {prompt:"Wat ___ jij doen in mijn plaats?", answer:"zou", hint:"What would you do in my place?"},
+          {prompt:"Ik ben mijn paspoort ___.", answer:"kwijt", hint:"I've lost my passport."},
+          {prompt:"Het valt me best ___.", answer:"zwaar", hint:"I'm finding it quite tough."},
+          {prompt:"Ik werk het liefst vanuit ___.", answer:"huis", hint:"I prefer working from home."},
+          {prompt:"Laten we een weekendje ___ plannen.", answer:"weg", hint:"Let's plan a weekend getaway."},
+          {prompt:"Kunt u me helpen met ___?", answer:"omboeken", hint:"Can you help me rebook?"},
+          {prompt:"Ik ben ___ dat het achter de rug is.", answer:"opgelucht", hint:"I'm relieved it's over."},
+          {prompt:"Het is ___ dan het lijkt.", answer:"ingewikkelder", hint:"It's more complicated than it seems (comparative)."}
+        ],
+        builderSentences: [
+          {parts:["Wat","voor","werk","doe","je","?"], answer:"Wat voor werk doe je?", en:"What kind of work do you do?"},
+          {parts:["Vroeger","woonde","ik","in een andere stad"], answer:"Vroeger woonde ik in een andere stad", en:"I used to live in a different city."},
+          {parts:["Als","ik","meer tijd had",",","zou ik reizen"], answer:"Als ik meer tijd had, zou ik reizen", en:"If I had more time, I would travel."},
+          {parts:["Ik","ben","het daar niet mee eens",",","want..."], answer:"Ik ben het daar niet mee eens, want...", en:"I disagree with that, because..."},
+          {parts:["Mijn","trein","heeft","vertraging"], answer:"Mijn trein heeft vertraging", en:"My train is delayed."},
+          {parts:["Ik","voel","me","een beetje","overweldigd"], answer:"Ik voel me een beetje overweldigd", en:"I feel a bit overwhelmed."},
+          {parts:["Zullen","we","een keer","afspreken","om bij te praten","?"], answer:"Zullen we een keer afspreken om bij te praten?", en:"Shall we meet up sometime to catch up?"},
+          {parts:["Ik","overweeg","van baan","te veranderen"], answer:"Ik overweeg van baan te veranderen", en:"I'm considering changing jobs."},
+          {parts:["Wat","zou","jij","doen","in mijn plaats","?"], answer:"Wat zou jij doen in mijn plaats?", en:"What would you do in my place?"},
+          {parts:["Ik","ben","mijn paspoort","kwijt"], answer:"Ik ben mijn paspoort kwijt", en:"I've lost my passport."}
+        ],
+        translateItems: [
+          {en:"What kind of work do you do?", fr:"Wat voor werk doe je?"},
+          {en:"I used to live in a different city.", fr:"Vroeger woonde ik in een andere stad."},
+          {en:"If I had more time, I would travel.", fr:"Als ik meer tijd had, zou ik reizen."},
+          {en:"I disagree with that, because...", fr:"Ik ben het daar niet mee eens, want..."},
+          {en:"My train is delayed.", fr:"Mijn trein heeft vertraging."},
+          {en:"I feel a bit overwhelmed.", fr:"Ik voel me een beetje overweldigd."},
+          {en:"Shall we meet up sometime to catch up?", fr:"Zullen we een keer afspreken om bij te praten?"},
+          {en:"I'm considering changing jobs.", fr:"Ik overweeg van baan te veranderen."},
+          {en:"What would you do in my place?", fr:"Wat zou jij doen in mijn plaats?"},
+          {en:"I've lost my passport.", fr:"Ik ben mijn paspoort kwijt."},
+          {en:"When I was younger, I exercised a lot.", fr:"Toen ik jonger was, sportte ik veel."},
+          {en:"I think it's more nuanced than that.", fr:"Volgens mij ligt het genuanceerder."},
+          {en:"I would approach it differently.", fr:"Ik zou het anders aanpakken."},
+          {en:"I'm relieved it's over.", fr:"Ik ben opgelucht dat het achter de rug is."},
+          {en:"It's more complicated than it seems.", fr:"Het is ingewikkelder dan het lijkt."},
+          {en:"Let's plan a weekend getaway.", fr:"Laten we een weekendje weg plannen."}
+        ],
+        quizWeeks: [
+          [
+            {fr:"Wat voor werk doe je?", choices:["What kind of work do you do?","Where do you work?","How much do you earn?"], answer:0},
+            {fr:"Ik werk het liefst vanuit huis.", choices:["I never work from home.","I prefer working from home.","I work at an office."], answer:1},
+            {fr:"Ik overweeg van baan te veranderen.", choices:["I love my current job.","I'm considering changing jobs.","I just got fired."], answer:1},
+            {fr:"We hebben morgen een vergadering.", choices:["We had a meeting yesterday.","We have a meeting tomorrow.","We never have meetings."], answer:1},
+            {fr:"Ik ben net begonnen met een nieuwe baan.", choices:["I just started a new job.","I quit my job.","I've had this job for years."], answer:0},
+            {fr:"Het werk kan best stressvol zijn.", choices:["The work is very relaxing.","The work can be quite stressful.","I never work."], answer:1},
+            {fr:"Ik neem volgende week vrij.", choices:["I'm working overtime next week.","I'm taking time off next week.","I'm starting a new job next week."], answer:1},
+            {fr:"Mijn collega's zijn erg aardig.", choices:["My colleagues are unfriendly.","My colleagues are very nice.","I work alone."], answer:1}
+          ],
+          [
+            {fr:"Vroeger woonde ik in een andere stad.", choices:["I will live in another city.","I used to live in a different city.","I live in another city now."], answer:1},
+            {fr:"Toen ik jonger was, sportte ik veel.", choices:["I exercise a lot now.","When I was younger, I exercised a lot.","I never exercised."], answer:1},
+            {fr:"Over vijf jaar hoop ik te verhuizen.", choices:["I moved five years ago.","In five years I hope to move.","I will never move."], answer:1},
+            {fr:"Ik zal je morgen bellen.", choices:["I called you yesterday.","I'll call you tomorrow.","I never call you."], answer:1},
+            {fr:"Ik was aan het koken toen je belde.", choices:["I was cooking when you called.","I cooked after you called.","I never cook."], answer:0},
+            {fr:"Volgend jaar ga ik waarschijnlijk reizen.", choices:["I traveled last year.","Next year I'll probably travel.","I never travel."], answer:1},
+            {fr:"Ik had het al gedaan voordat je het vroeg.", choices:["I hadn't done it yet.","I had already done it before you asked.","I refused to do it."], answer:1},
+            {fr:"Ik dacht dat je later zou komen.", choices:["I thought you'd come later.","You came exactly on time.","I didn't expect you."], answer:0}
+          ],
+          [
+            {fr:"Ik ben het daar niet mee eens, want...", choices:["I agree with that, because...","I disagree with that, because...","I don't know about that."], answer:1},
+            {fr:"Aan de ene kant... aan de andere kant...", choices:["On one hand... on the other hand...","First... then...","Never... always..."], answer:0},
+            {fr:"Volgens mij ligt het genuanceerder.", choices:["It's very simple.","I think it's more nuanced than that.","I don't have an opinion."], answer:1},
+            {fr:"Dat is een goed punt, maar...", choices:["That's a bad point.","That's a good point, but...","I don't understand your point."], answer:1},
+            {fr:"Ik zie het anders.", choices:["I agree completely.","I see it differently.","I don't see anything."], answer:1},
+            {fr:"Het hangt ervan af hoe je het bekijkt.", choices:["There's only one way to see it.","It depends on how you look at it.","It doesn't matter at all."], answer:1},
+            {fr:"Daar heb je gelijk in.", choices:["You're wrong about that.","You're right about that.","I don't agree at all."], answer:1},
+            {fr:"Ik snap je punt, maar ik denk er anders over.", choices:["I don't understand you at all.","I get your point, but I think differently about it.","I completely agree with you."], answer:1}
+          ],
+          [
+            {fr:"Als ik meer tijd had, zou ik reizen.", choices:["I don't have time to travel.","If I had more time, I would travel.","I traveled a lot last year."], answer:1},
+            {fr:"Wat zou jij doen in mijn plaats?", choices:["What did you do yesterday?","What would you do in my place?","Where should I go?"], answer:1},
+            {fr:"Als het niet had geregend, waren we naar buiten gegaan.", choices:["It rained, so we stayed home.","If it hadn't rained, we would have gone outside.","We went outside despite the rain."], answer:0},
+            {fr:"Ik zou het anders aanpakken.", choices:["I would approach it differently.","I did it the same way.","I refuse to do it."], answer:0},
+            {fr:"Als ik jou was, zou ik het proberen.", choices:["I would never try it.","If I were you, I would try it.","You should never try it."], answer:1},
+            {fr:"Zonder jouw hulp was het niet gelukt.", choices:["I didn't need your help.","Without your help it wouldn't have worked.","Your help made it worse."], answer:1},
+            {fr:"Wat als we het gewoon proberen?", choices:["We should never try it.","What if we just try it?","We already tried it."], answer:1},
+            {fr:"Ik zou het niet erg vinden.", choices:["I would mind a lot.","I wouldn't mind.","I refuse completely."], answer:1}
+          ],
+          [
+            {fr:"Wat voor werk doe je?", choices:["What kind of work do you do?","Where do you work?","How much do you earn?"], answer:0},
+            {fr:"Vroeger woonde ik in een andere stad.", choices:["I will live in another city.","I used to live in a different city.","I live in another city now."], answer:1},
+            {fr:"Ik ben het daar niet mee eens, want...", choices:["I agree with that, because...","I disagree with that, because...","I don't know about that."], answer:1},
+            {fr:"Als ik meer tijd had, zou ik reizen.", choices:["I don't have time to travel.","If I had more time, I would travel.","I traveled a lot last year."], answer:1},
+            {fr:"Ik overweeg van baan te veranderen.", choices:["I love my current job.","I'm considering changing jobs.","I just got fired."], answer:1},
+            {fr:"Volgens mij ligt het genuanceerder.", choices:["It's very simple.","I think it's more nuanced than that.","I don't have an opinion."], answer:1},
+            {fr:"Ik zou het anders aanpakken.", choices:["I would approach it differently.","I did it the same way.","I refuse to do it."], answer:0},
+            {fr:"Toen ik jonger was, sportte ik veel.", choices:["I exercise a lot now.","When I was younger, I exercised a lot.","I never exercised."], answer:1}
+          ],
+          [
+            {fr:"Zullen we een keer afspreken om bij te praten?", choices:["Can we cancel our plans?","Shall we meet up sometime to catch up?","We should stop talking."], answer:1},
+            {fr:"Ik heb je gemist!", choices:["I forgot about you!","I've missed you!","I don't know you!"], answer:1},
+            {fr:"Laten we een weekendje weg plannen.", choices:["Let's stay home this weekend.","Let's plan a weekend getaway.","Let's cancel our trip."], answer:1},
+            {fr:"Wie nodig je nog meer uit?", choices:["Who else are you inviting?","Who is coming with you?","Who canceled?"], answer:0},
+            {fr:"Ik kan helaas niet, ik heb al iets anders.", choices:["I'd love to come.","Unfortunately I can't, I already have something else.","I have no plans."], answer:1},
+            {fr:"Breng gerust iemand mee.", choices:["Come alone, please.","Feel free to bring someone.","No guests allowed."], answer:1},
+            {fr:"We zien elkaar al een tijdje niet meer.", choices:["We see each other every day.","We haven't seen each other in a while.","We just met."], answer:1},
+            {fr:"Ik verheug me erop.", choices:["I'm dreading it.","I'm looking forward to it.","I forgot about it."], answer:1}
+          ],
+          [
+            {fr:"Mijn trein heeft vertraging.", choices:["My train is on time.","My train is delayed.","I missed my train."], answer:1},
+            {fr:"Ik ben mijn paspoort kwijt.", choices:["I found my passport.","I've lost my passport.","I renewed my passport."], answer:1},
+            {fr:"De vlucht is geannuleerd.", choices:["The flight is on time.","The flight has been cancelled.","The flight is delayed."], answer:1},
+            {fr:"Ik voel me een beetje overweldigd.", choices:["I feel great.","I feel a bit overwhelmed.","I feel bored."], answer:1},
+            {fr:"Het valt me best zwaar.", choices:["It's easy for me.","I'm finding it quite tough.","I don't care about it."], answer:1},
+            {fr:"Ik ben opgelucht dat het achter de rug is.", choices:["I'm worried it's not over.","I'm relieved it's over.","I'm sad it's over."], answer:1},
+            {fr:"Het raakte me meer dan ik verwachtte.", choices:["It didn't affect me at all.","It affected me more than I expected.","I expected exactly that."], answer:1},
+            {fr:"Het is ingewikkelder dan het lijkt.", choices:["It's simpler than it looks.","It's more complicated than it seems.","It's exactly as it looks."], answer:1}
+          ],
+          [
+            {fr:"Als ik meer tijd had, zou ik reizen.", choices:["I don't have time to travel.","If I had more time, I would travel.","I traveled a lot last year."], answer:1},
+            {fr:"Ik overweeg van baan te veranderen.", choices:["I love my current job.","I'm considering changing jobs.","I just got fired."], answer:1},
+            {fr:"Mijn trein heeft vertraging.", choices:["My train is on time.","My train is delayed.","I missed my train."], answer:1},
+            {fr:"Zullen we een keer afspreken om bij te praten?", choices:["Can we cancel our plans?","Shall we meet up sometime to catch up?","We should stop talking."], answer:1},
+            {fr:"Ik ben het daar niet mee eens, want...", choices:["I agree with that, because...","I disagree with that, because...","I don't know about that."], answer:1},
+            {fr:"Vroeger woonde ik in een andere stad.", choices:["I will live in another city.","I used to live in a different city.","I live in another city now."], answer:1},
+            {fr:"Ik voel me een beetje overweldigd.", choices:["I feel great.","I feel a bit overwhelmed.","I feel bored."], answer:1},
+            {fr:"Wat zou jij doen in mijn plaats?", choices:["What did you do yesterday?","What would you do in my place?","Where should I go?"], answer:1}
+          ]
+        ]
+      } // end b1
+
+    } // end levels
+  }
+};
+
+/* ---------- ACTIVE COURSE STATE ---------- */
+let currentCourseId = null;
+let weeks, PHRASE_CATS, phrases, RES_TYPES, resources, mcq, fillBlank, listenItems, builderSentences, translateItems, quizWeeks;
+
 const store = {
   get(key, fallback){ try{ const v = localStorage.getItem(key); return v===null? fallback : JSON.parse(v); }catch(e){ return fallback; } },
   set(key, val){ try{ localStorage.setItem(key, JSON.stringify(val)); }catch(e){} }
@@ -863,13 +2172,15 @@ document.querySelectorAll('nav.bottom button').forEach(btn=>{
 });
 
 /* ---------- TTS ---------- */
+let currentLangCode = 'fr-FR';
 function speak(text){
   if(!('speechSynthesis' in window)){ alert('Speech not supported on this browser.'); return; }
   const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'fr-FR';
+  u.lang = currentLangCode;
   const voices = speechSynthesis.getVoices();
-  const fr = voices.find(v=>v.lang && v.lang.startsWith('fr'));
-  if(fr) u.voice = fr;
+  const short = currentLangCode.split('-')[0];
+  const match = voices.find(v=>v.lang && v.lang.startsWith(short));
+  if(match) u.voice = match;
   u.rate = 0.92;
   speechSynthesis.cancel();
   speechSynthesis.speak(u);
@@ -877,7 +2188,7 @@ function speak(text){
 if('speechSynthesis' in window){ speechSynthesis.onvoiceschanged = ()=>{}; }
 
 /* ---------- RENDER: PLAN ---------- */
-let weekChecks = store.get('weekChecks', {});
+let weekChecks = {};
 function renderWeeks(){
   const wrap = document.getElementById('weeks');
   wrap.innerHTML = '';
@@ -917,7 +2228,7 @@ function renderWeeks(){
         const wi = +cb.dataset.week, di = +cb.dataset.item;
         if(!weekChecks[wi]) weekChecks[wi] = weeks[wi].details.map(()=>false);
         weekChecks[wi][di] = cb.checked;
-        store.set('weekChecks', weekChecks);
+        store.set('weekChecks_'+currentStoreKey, weekChecks);
         renderWeeks();
         const reopened = document.querySelectorAll('.week')[wi];
         if(reopened) reopened.classList.add('open');
@@ -925,10 +2236,9 @@ function renderWeeks(){
     });
   });
 }
-renderWeeks();
 
 /* ---------- RENDER: PHRASES ---------- */
-let activeCat = PHRASE_CATS[0];
+let activeCat;
 function renderCatTabs(){
   const wrap = document.getElementById('catTabs');
   wrap.innerHTML = '';
@@ -954,8 +2264,6 @@ function renderPhraseList(){
     btn.addEventListener('click', ()=> speak(phrases[activeCat][idx][0]));
   });
 }
-renderCatTabs();
-renderPhraseList();
 
 /* ---------- RENDER: RESOURCES ---------- */
 function renderResources(){
@@ -985,12 +2293,10 @@ function renderResTabs(){
     wrap.appendChild(b);
   });
 }
-renderResTabs();
-renderResources();
 
 /* ---------- WEEKLY QUIZ ---------- */
 let activeQuizWeek = 0;
-let quizBest = store.get('quizBest', {});
+let quizBest = {};
 
 function renderQuizTabs(){
   const wrap = document.getElementById('quizWeekTabs');
@@ -1020,7 +2326,7 @@ function renderQuizBody(){
       const prevBest = quizBest[activeQuizWeek];
       if(prevBest === undefined || finalScore > prevBest){
         quizBest[activeQuizWeek] = finalScore;
-        store.set('quizBest', quizBest);
+        store.set('quizBest_'+currentStoreKey, quizBest);
         renderQuizTabs();
       }
       body.innerHTML = `
@@ -1092,16 +2398,13 @@ function renderQuizBody(){
   show();
 }
 
-renderQuizTabs();
-renderQuizBody();
-
 /* ---------- EXERCISES ---------- */
 const exTabs = [
   {id:'mcq', label:'Multiple choice'},
   {id:'fill', label:'Fill in the blank'},
   {id:'listen', label:'Listening dictation'},
   {id:'build', label:'Sentence builder'},
-  {id:'translate', label:'Translate EN→FR'}
+  {id:'translate', label:'Translate'}
 ];
 let activeEx = 'mcq';
 function renderExTabs(){
@@ -1110,7 +2413,7 @@ function renderExTabs(){
   exTabs.forEach(t=>{
     const b = document.createElement('button');
     b.className = 'ex-tab' + (t.id===activeEx? ' active':'');
-    b.textContent = t.label;
+    b.textContent = t.id==='translate' ? `Translate EN→${(currentCourseId||'').toUpperCase()}` : t.label;
     b.addEventListener('click', ()=>{ activeEx = t.id; renderExTabs(); renderExBody(); });
     wrap.appendChild(b);
   });
@@ -1123,7 +2426,6 @@ function renderExBody(){
   if(activeEx==='build') return renderBuilder(body);
   if(activeEx==='translate') return renderTranslate(body);
 }
-renderExTabs();
 
 /* MCQ */
 function renderMCQ(body){
@@ -1252,7 +2554,7 @@ function renderListen(body){
     body.innerHTML = `
       <div class="card question-card">
         <div class="q-progress">Phrase ${i+1} of ${items.length}</div>
-        <p style="font-size:.88rem; color:#5b6664; margin-top:0;">Listen, then type what you hear — French only.</p>
+        <p style="font-size:.88rem; color:#5b6664; margin-top:0;">Listen, then type what you hear — ${COURSES[currentCourseId].name} only.</p>
         <button class="btn btn-primary" id="playBtn" style="margin-bottom:14px;">▶ Play phrase</button>
         <input class="fill-input" id="dictIn" placeholder="Type what you heard" autocomplete="off" autocapitalize="off">
         <div class="ex-btn-row">
@@ -1344,9 +2646,7 @@ function renderBuilder(body){
   show();
 }
 
-renderExBody();
-
-/* Translate EN -> FR */
+/* Translate EN -> target language */
 function renderTranslate(body){
   let i = 0, score = 0;
   const items = translateItems;
@@ -1360,8 +2660,8 @@ function renderTranslate(body){
     body.innerHTML = `
       <div class="card question-card">
         <div class="q-progress">Phrase ${i+1} of ${items.length}</div>
-        <div class="q-prompt">Translate to French:<br><em>${q.en}</em></div>
-        <input class="fill-input" id="trIn" placeholder="Écris en français" autocomplete="off" autocapitalize="off">
+        <div class="q-prompt">Translate to ${COURSES[currentCourseId].name}:<br><em>${q.en}</em></div>
+        <input class="fill-input" id="trIn" placeholder="Type the ${COURSES[currentCourseId].name} translation" autocomplete="off" autocapitalize="off">
         <div class="ex-btn-row">
           <button class="btn btn-primary" id="check">Check</button>
           <button class="btn btn-ghost" id="playBtn">▶ Hear it</button>
@@ -1385,6 +2685,153 @@ function renderTranslate(body){
     input.addEventListener('keydown', e=>{ if(e.key==='Enter') body.querySelector('#check').click(); });
   }
   show();
+}
+
+/* ---------- COURSE LOADING / LANDING SCREEN ---------- */
+let currentLevelId = null;
+let currentStoreKey = null;
+let pendingLangId = null;
+
+function loadCourse(langId, levelId){
+  const lang = COURSES[langId];
+  if(!lang) return;
+
+  let c, resolvedLevelId;
+  if(lang.levels){
+    const keys = Object.keys(lang.levels);
+    resolvedLevelId = (levelId && lang.levels[levelId]) ? levelId : (store.get('lastLevel_'+langId, null) || keys[0]);
+    if(!lang.levels[resolvedLevelId]) resolvedLevelId = keys[0];
+    c = lang.levels[resolvedLevelId];
+  } else {
+    resolvedLevelId = null;
+    c = lang;
+  }
+
+  currentCourseId = langId;
+  currentLevelId = resolvedLevelId;
+  currentStoreKey = resolvedLevelId ? (langId+'_'+resolvedLevelId) : langId;
+
+  weeks = c.weeks;
+  PHRASE_CATS = c.PHRASE_CATS;
+  phrases = c.phrases;
+  RES_TYPES = c.RES_TYPES;
+  resources = c.resources;
+  mcq = c.mcq;
+  fillBlank = c.fillBlank;
+  builderSentences = c.builderSentences;
+  translateItems = c.translateItems;
+  quizWeeks = c.quizWeeks;
+  listenItems = Object.values(phrases).flat();
+  currentLangCode = lang.langCode;
+
+  document.title = c.pageTitle || lang.pageTitle || lang.appName;
+  document.getElementById('hdrEyebrow').textContent = c.eyebrow || lang.eyebrow || '';
+  document.getElementById('hdrTitle').textContent = lang.appName;
+
+  const levelBadgeBtn = document.getElementById('levelBadgeBtn');
+  if(lang.levels && Object.keys(lang.levels).length > 1){
+    levelBadgeBtn.textContent = (c.label || resolvedLevelId.toUpperCase()) + ' · Change ▾';
+    levelBadgeBtn.style.display = 'inline-flex';
+  } else {
+    levelBadgeBtn.style.display = 'none';
+  }
+
+  weekChecks = store.get('weekChecks_'+currentStoreKey, {});
+  quizBest = store.get('quizBest_'+currentStoreKey, {});
+  activeCat = PHRASE_CATS[0];
+  activeResType = 'All';
+  activeQuizWeek = 0;
+  activeEx = 'mcq';
+
+  // clear dynamic containers first so no stale duplicate-id elements (e.g. #prevBtn)
+  // linger in another panel while the next one is being rebuilt
+  ['weeks','phraseList','resList','quizBody','exBody'].forEach(elId=>{
+    const el = document.getElementById(elId);
+    if(el) el.innerHTML = '';
+  });
+
+  renderWeeks();
+  renderCatTabs();
+  renderPhraseList();
+  renderResTabs();
+  renderResources();
+  renderQuizTabs();
+  renderQuizBody();
+  renderExTabs();
+  renderExBody();
+
+  // reset nav to the Plan tab
+  document.querySelectorAll('nav.bottom button').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('main section').forEach(s=>s.classList.remove('active'));
+  document.querySelector('nav.bottom button[data-target="plan"]').classList.add('active');
+  document.getElementById('plan').classList.add('active');
+
+  document.getElementById('landingScreen').style.display = 'none';
+  document.getElementById('levelScreen').style.display = 'none';
+  document.getElementById('appScreen').style.display = 'block';
+  window.scrollTo({top:0});
+
+  store.set('lastCourse', langId);
+  if(resolvedLevelId) store.set('lastLevel_'+langId, resolvedLevelId);
+}
+
+function showLanding(){
+  document.getElementById('appScreen').style.display = 'none';
+  document.getElementById('levelScreen').style.display = 'none';
+  document.getElementById('landingScreen').style.display = 'flex';
+  window.scrollTo({top:0});
+}
+
+function showLevelScreen(langId){
+  const lang = COURSES[langId];
+  if(!lang || !lang.levels) return;
+  pendingLangId = langId;
+
+  document.getElementById('levelScreenFlagName').textContent = `${lang.flag || ''} ${lang.name}`.trim();
+  document.getElementById('levelScreenTitle').textContent = `Choose your ${lang.name} level`;
+
+  const grid = document.getElementById('levelGrid');
+  grid.innerHTML = Object.entries(lang.levels).map(([lvlId, lvl])=>`
+    <button class="course-card" data-level="${lvlId}">
+      <div class="flag">${lang.flag || ''}</div>
+      <div class="course-info">
+        <div class="course-level">${lvl.label}</div>
+        <div class="course-name">${lang.name}</div>
+        <div class="course-desc">${lvl.desc}</div>
+      </div>
+      <div class="chev">›</div>
+    </button>`).join('');
+  grid.querySelectorAll('.course-card').forEach(btn=>{
+    btn.addEventListener('click', ()=> loadCourse(pendingLangId, btn.dataset.level));
+  });
+
+  document.getElementById('landingScreen').style.display = 'none';
+  document.getElementById('appScreen').style.display = 'none';
+  document.getElementById('levelScreen').style.display = 'flex';
+  window.scrollTo({top:0});
+}
+
+document.querySelectorAll('.course-card').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const langId = btn.dataset.course;
+    const lang = COURSES[langId];
+    if(lang && lang.levels && Object.keys(lang.levels).length > 1){
+      showLevelScreen(langId);
+    } else {
+      loadCourse(langId);
+    }
+  });
+});
+document.getElementById('switchCourseBtn').addEventListener('click', showLanding);
+document.getElementById('levelBackBtn').addEventListener('click', showLanding);
+document.getElementById('levelBadgeBtn').addEventListener('click', ()=> showLevelScreen(currentCourseId));
+
+/* ---------- INIT ---------- */
+const lastCourse = store.get('lastCourse', null);
+if(lastCourse && COURSES[lastCourse]){
+  loadCourse(lastCourse);
+} else {
+  showLanding();
 }
 </script>
 </body>
